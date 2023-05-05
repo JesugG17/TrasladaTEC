@@ -1,8 +1,17 @@
 import { LogoutSharp } from "@mui/icons-material";
 import { Grid, IconButton, Link } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 export const Links = () => {
+
+  const navigate = useNavigate();
+
+  const logout = () => {
+    navigate('/', {
+      replace: true
+    })
+  }
+
   return (
     <Grid item>
       <Link
@@ -29,7 +38,7 @@ export const Links = () => {
       >
         Perfil
       </Link>
-      <IconButton>
+      <IconButton onClick={ logout }>
         <LogoutSharp color="error" sx={{ fontSize: 40 }} />
       </IconButton>
     </Grid>

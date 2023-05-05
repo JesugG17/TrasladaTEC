@@ -31,11 +31,11 @@ export const EstudianteView = () => {
 
              <Grid 
               item 
-              xs={6}
-              sx={{height: 180, mb: 5}}
+              xs={12}
+              sx={{height: 180, mb: 5, textAlign: 'center'}}
             >
-                <IconButton>
-                  <AccountBoxOutlined sx={{ fontSize: 200, textAlign: 'center'}}/>
+                <IconButton > 
+                  <AccountBoxOutlined sx={{ fontSize: 180}}/>
                 </IconButton>
              </Grid>
 

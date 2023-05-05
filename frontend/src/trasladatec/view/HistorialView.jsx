@@ -1,6 +1,7 @@
+import { TrasladaTECLayout } from "../layout/TrasladaTECLayout"
 
 export const HistorialView = () => {
   return (
-    <div>HistorialView</div>
+    <TrasladaTECLayout>HistorialView</TrasladaTECLayout>
   )
 }
