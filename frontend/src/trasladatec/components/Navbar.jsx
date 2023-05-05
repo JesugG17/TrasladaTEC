@@ -1,5 +1,6 @@
-import { AppBar, Grid, Toolbar, Typography } from '@mui/material'
+import { AppBar, Grid, Icon, IconButton, Toolbar, Typography } from '@mui/material'
 import { Links } from './Links'
+import { Home, HomeMaxOutlined, HomeOutlined } from '@mui/icons-material'
 
 export const Navbar = () => {
   return (
@@ -16,7 +17,14 @@ export const Navbar = () => {
                 justifyContent='space-between'
                 alignItems='center'
             >
-                <Typography variant='h5'>TrasladaTEC</Typography>
+                <Grid container direction='row' xs={6}>
+                    <Icon sx={{mr: 1}}>
+                        <HomeOutlined sx={{fontSize: 30}}/>
+                    </Icon>
+                    <Typography variant='h5' component='p'>
+                        TrasladaTEC
+                    </Typography>
+                </Grid>
                 <Links />
             </Grid>
         </Toolbar>

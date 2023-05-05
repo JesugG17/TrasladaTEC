@@ -1,20 +1,43 @@
-import { Autocomplete, Button, Grid, TextField, Typography } from "@mui/material"
-import { TrasladaTECLayout } from "../layout/TrasladaTECLayout"
-import { useState } from "react"
-const institutos = ['', 'Culiacan', 'Hermosillo', 'CDMX', 'Mazatlan'];
-const motivos = ['', 'Familiar', 'Personal'];
+import { useState } from 'react'
+import { Alert, Autocomplete, Button, Grid, TextField, Typography } from '@mui/material'
+import { TrasladaTECLayout } from '../layout/TrasladaTECLayout'
+
+const institutos = ['Culiacan', 'Hermosillo', 'CDMX', 'Mazatlan'];
+const motivos = ['Familiar', 'Personal'];
 export const SolicitudView = () => {
 
-  const [inputValue, setInputValue] = useState('');
-  const [motivoValue, setMotivoValue] = useState('');
+
+  const [otroMotivo, setOtroMotivo] = useState('');
+  const [instituto, setInputInstituto] = useState('');
+  const [motivo, setInputMotivo] = useState('');
+  const [error, setError] = useState(false);
 
   const onChangeInstituto = (event, newInputValue) => {
-    console.log({oninputchange: newInputValue});
-    setInputValue(newInputValue);
+    if (error) setError(false);
+    setInputInstituto(newInputValue);
   }
 
   const onChangeMotivo = (event, newInputValue) => {
-    setMotivoValue(newInputValue);
+    if (error) setError(false);
+    setInputMotivo(newInputValue);
+  }
+
+  const handleChange = (event) => {
+    if (error) setError(false);
+    setOtroMotivo(event.target.value);
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (instituto.length === 0 || motivo.length === 0 || otroMotivo.length === 0) {
+      setError(true)
+      return;
+    }
+
+    setInputInstituto('');
+    setInputMotivo('');
+    setOtroMotivo('');
   }
 
   return (
@@ -29,28 +52,27 @@ export const SolicitudView = () => {
             
             <Grid 
               container
-              className="box-shadow"
+              className='box-shadow'
               direction='column'
               alignItems='center'
               spacing={2}
-              sx={{width: '40%', height: 500, backgroundColor: 'secondary.main', borderRadius: 3, padding: 5 }}
+              sx={{width: '40%', height: 540, backgroundColor: 'secondary.main', borderRadius: 3, padding: 0 }}
             >
-              <Typography variant="h4" gutterBottom>Solicitud</Typography>
-              <form>
+              <Typography sx={{mt: 3}}variant='h4' gutterBottom>Solicitud</Typography>
+              <form onSubmit={ handleSubmit }>
                 <Grid
                   item
                   xs={12}
                 >
                   <Autocomplete
-                    id="institutos-select"
+                    id='institutos-select'
                     sx={{width: 300}}
-                    // value={value}
                     options={institutos}
-                    // onChange={onChange}
-                    onInputChange={onChangeInstituto}
-                    inputValue={ inputValue }
+                    onChange={ onChangeInstituto }
+                    value={ instituto }
+                    blurOnSelect
                     renderInput={( params ) => {
-                      return <TextField {...params} label="Instituto destino" margin="normal"/>
+                      return <TextField {...params} label='Instituto destino' margin='normal'/>
                     }}
                   />
                 </Grid>
@@ -59,15 +81,14 @@ export const SolicitudView = () => {
                   xs={12}
                 >
                   <Autocomplete
-                    id="institutos-select"
+                    id='institutos-select'
                     sx={{width: 300}}
-                    // value={value}
+                    name='motivo'
                     options={motivos}
-                    // onChange={onChange}
-                    onInputChange={onChangeMotivo}
-                    inputValue={ motivoValue }
+                    onChange={ onChangeMotivo }
+                    value={ motivo }
                     renderInput={( params ) => {
-                      return <TextField {...params} label="Motivo" margin="normal"/>
+                      return <TextField {...params} label='Motivo' margin='normal'/>
                     }}
                   />
                 </Grid> 
@@ -78,9 +99,12 @@ export const SolicitudView = () => {
                   <TextField 
                     multiline
                     minRows={4}
+                    name='otroMotivo'
+                    onChange={handleChange}
+                    value={otroMotivo}
                     label='Otro motivo'
-                    variant="filled"
-                    sx={{ width: 300}}
+                    variant='filled'
+                    sx={{ width: 300, mt: 2}}
                   />
                 </Grid>
                 <Grid
@@ -88,17 +112,23 @@ export const SolicitudView = () => {
                   xs={12}
                   sx={{mt: 2}}
                 >
+                 
                   <Button
-                    variant="contained"
+                    variant='contained'
+                    type='submit'
                     fullWidth
+                    sx={{mt: 2}}
                   >
                     Crear solicitud
                   </Button>
+                  {
+                    error &&
+                    <Alert sx={{mt: 2}} severity='error' color='error'>Favor de llenar todos los campos</Alert>
+                  }
                 </Grid>
               </form>  
             </Grid>
           </Grid>
-
     </TrasladaTECLayout>
   )
 }
