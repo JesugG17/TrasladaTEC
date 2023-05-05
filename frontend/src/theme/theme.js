@@ -10,7 +10,7 @@ export const theme = createTheme({
             main: '#F1F1F9'
         },
         error: {
-            main: red.A400
+            main: red.A700
         },
         success: {
             main: green.A100
