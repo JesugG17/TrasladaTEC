@@ -1,12 +1,14 @@
 import { Navigate, Route, Routes } from 'react-router'
-import { TrasladaTECPage } from '../TrasladaTECPage'
+import { EstudianteView } from '../view/EstudianteView'
+import { SolicitudView } from '../view/SolicitudView'
+import { HistorialView } from '../view/HistorialView'
 
 export const TrasladaTECRoutes = () => {
   return (
     <Routes>
-        
-        <Route path='/home/estudiante' element={<TrasladaTECPage />} />
-
+        <Route path='/estudiante' element={<EstudianteView />} />
+        <Route path='/crear' element={<SolicitudView />} />
+        <Route path='/historial' element={<HistorialView />} />
         <Route path='/*' element={<Navigate to='/'/>}/>
 
     </Routes>

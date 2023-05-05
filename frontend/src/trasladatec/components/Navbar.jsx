@@ -1,6 +1,5 @@
-import { LogoutSharp } from '@mui/icons-material'
-import { AppBar, Grid, IconButton, Toolbar, Typography } from '@mui/material'
-import React from 'react'
+import { AppBar, Grid, Toolbar, Typography } from '@mui/material'
+import { Links } from './Links'
 
 export const Navbar = () => {
   return (
@@ -18,12 +17,7 @@ export const Navbar = () => {
                 alignItems='center'
             >
                 <Typography variant='h5'>TrasladaTEC</Typography>
-                <IconButton>
-                    <LogoutSharp 
-                        color='error'
-                        sx={{fontSize: 40}}
-                    />
-                </IconButton>
+                <Links />
             </Grid>
         </Toolbar>
 
