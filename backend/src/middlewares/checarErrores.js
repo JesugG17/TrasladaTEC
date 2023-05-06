@@ -6,10 +6,10 @@ const checarErrores = (req, res = response) => {
 
     const errors = validationResult(req);
 
-    if (!errors.isEmpty) {
+    if (!errors.isEmpty()) {
         return res.status(httpStatusCode.BadRequest).json({
             ok: false,
-            errors
+            ...errors
         })
     }
 

@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const generarJWT = ( estudiante ) => {
+const generarJWT = ( usuario ) => {
     return new Promise((resolve, reject) => {
         
         jwt.sign({ estudiante }, process.env.MYSECRETKEY, {
