@@ -2,7 +2,7 @@ const { response } = require("express");
 const { validationResult } = require("express-validator");
 const { httpStatusCode } = require("httpstatuscode");
 
-const checarErrores = (req, res = response) => {
+const checarErrores = (req, res = response, next) => {
 
     const errors = validationResult(req);
 
@@ -13,6 +13,7 @@ const checarErrores = (req, res = response) => {
         })
     }
 
+    next();
 }
 
 module.exports = {

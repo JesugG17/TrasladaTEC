@@ -27,9 +27,9 @@ const logIn = async(req = request, res = response) => {
             token
         });
     } catch (error) {
-        res.status(httpStatusCode.BadRequest).json({
+        res.status(httpStatusCode.InternalServerError).json({
             ok: false,
-            error: 'Autenticacion fallida'
+            error: 'Autenticacion fallida, fallo del servidor'
         });
     }
 
