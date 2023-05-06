@@ -11,16 +11,6 @@ export const useForm = (initialState = {}) => {
     })
   }
 
-  const handleInputChange= (event, newValue) => {
-    
-    console.log({event, newValue});
-
-    // setFormState({
-    //   ...formState,
-    //   [name]: newValue
-    // })
-  }
-
   const onResetForm = () => {
     setFormState(initialState);
   }
@@ -30,7 +20,6 @@ export const useForm = (initialState = {}) => {
     ...formState,
     formState,
     handleChange,
-    handleInputChange,
     onResetForm
   }
 }

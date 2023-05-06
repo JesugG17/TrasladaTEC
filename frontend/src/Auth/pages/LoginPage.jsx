@@ -1,14 +1,28 @@
-import { Button, Grid, InputAdornment, TextField, Typography } from '@mui/material'
-import { useForm } from '../../hooks/useForm'
+import { Button, CircularProgress, Grid, InputAdornment, TextField, Typography } from '@mui/material'
 import { EmailOutlined, PasswordOutlined } from '@mui/icons-material'
+import { useForm } from '../../hooks/useForm'
+import { useDispatch, useSelector } from 'react-redux'
+import { checandoCredenciales } from '../../store/auth/authSlice'
+import { useMemo } from 'react'
 
 export const LoginPage = () => {
 
-  const { handleChange, handleSubmit, correo, contraseña } = useForm({
+
+  const { estatus, errorMessage } = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+  const { handleChange, correo, contraseña } = useForm({
     correo: '',
     contraseña: ''
-  })
+  });
 
+  const isChecking = useMemo(() => estatus === 'checando', [estatus]);
+  
+  const handleSubmit = async(event) => {
+    event.preventDefault();
+    dispatch(checandoCredenciales());
+ 
+    
+  }
 
   return (
     <Grid
@@ -33,6 +47,7 @@ export const LoginPage = () => {
                 <TextField 
                   label='correo'
                   type='email'
+                  disabled={ isChecking }
                   name='correo'
                   fullWidth
                   value={correo}
@@ -51,6 +66,7 @@ export const LoginPage = () => {
                 <TextField 
                   label='contraseña'
                   type='password'
+                  disabled={ isChecking }
                   name='contraseña'
                   fullWidth
                   value={ contraseña }
@@ -69,6 +85,8 @@ export const LoginPage = () => {
                     variant='contained'
                     type='submit'
                     fullWidth
+                    disabled={ isChecking }
+                    onSubmit={ handleSubmit }
                   >
                     Ingresar
                   </Button>
