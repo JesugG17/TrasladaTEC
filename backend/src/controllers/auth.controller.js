@@ -1,9 +1,14 @@
-const { response } = require("express")
+const { response, request } = require("express")
 
-const logIn = async(req, res = response) => {
+const logIn = async(req = request, res = response) => {
+
+    const { correo, contrasenia } = req.body;
+
+    
+
 
     res.json({
-        msg: 'hola'
+        ok: true
     })
 }
 
