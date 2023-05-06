@@ -57,7 +57,7 @@ export const LoginPage = () => {
                   onChange={ handleChange }
                   InputProps={{
                     startAdornment: (
-                      <InputAdornment sx={{mr: 1}}>
+                      <InputAdornment position='start' sx={{mr: 1}}>
                         <PasswordOutlined />
                       </InputAdornment>
                     )

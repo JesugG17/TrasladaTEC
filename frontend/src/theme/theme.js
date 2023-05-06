@@ -13,7 +13,7 @@ export const theme = createTheme({
             main: red.A700
         },
         success: {
-            main: green.A100
+            main: green.A700
         },
         warning: {
             main: yellow.A200

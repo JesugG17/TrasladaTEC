@@ -17,10 +17,7 @@ export const Navbar = () => {
                 justifyContent='space-between'
                 alignItems='center'
             >
-                <Grid container direction='row' xs={6}>
-                    <Icon sx={{mr: 1}}>
-                        <HomeOutlined sx={{fontSize: 30}}/>
-                    </Icon>
+                <Grid item>
                     <Typography variant='h5' component='p'>
                         TrasladaTEC
                     </Typography>

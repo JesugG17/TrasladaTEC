@@ -4,26 +4,32 @@ import { TrasladaTECLayout } from '../layout/TrasladaTECLayout'
 
 const institutos = ['Culiacan', 'Hermosillo', 'CDMX', 'Mazatlan'];
 const motivos = ['Familiar', 'Personal'];
-export const SolicitudView = () => {
 
+export const SolicitudView = () => {
 
   const [otroMotivo, setOtroMotivo] = useState('');
   const [instituto, setInputInstituto] = useState('');
   const [motivo, setInputMotivo] = useState('');
   const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+
 
   const onChangeInstituto = (event, newInputValue) => {
     if (error) setError(false);
+    if (success) setSuccess(false);
+
     setInputInstituto(newInputValue);
   }
 
   const onChangeMotivo = (event, newInputValue) => {
     if (error) setError(false);
+    if (success) setSuccess(false);
     setInputMotivo(newInputValue);
   }
 
   const handleChange = (event) => {
     if (error) setError(false);
+    if (success) setSuccess(false);
     setOtroMotivo(event.target.value);
   }
 
@@ -31,13 +37,15 @@ export const SolicitudView = () => {
     event.preventDefault();
 
     if (instituto.length === 0 || motivo.length === 0 || otroMotivo.length === 0) {
-      setError(true)
+      setError(true);
+      setSuccess(false);
       return;
     }
 
     setInputInstituto('');
     setInputMotivo('');
     setOtroMotivo('');
+    setSuccess(true);
   }
 
   return (
@@ -47,7 +55,7 @@ export const SolicitudView = () => {
             direction='row'
             justifyContent='center'
             alignItems='center'
-            sx={{width: '100%', height: '100vh'}}
+            sx={{width: '100%', height: '95vh', mt: 3}}
           >
             
             <Grid 
@@ -124,6 +132,10 @@ export const SolicitudView = () => {
                   {
                     error &&
                     <Alert sx={{mt: 2}} severity='error' color='error'>Favor de llenar todos los campos</Alert>
+                  }
+                  {
+                    success &&
+                    <Alert severity='success' sx={{mt: 2}} color='success'>Solicitud creada exitosamente</Alert>
                   }
                 </Grid>
               </form>  
