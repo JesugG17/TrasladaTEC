@@ -2,6 +2,8 @@ const { response, request } = require('express')
 const { httpStatusCode } = require('httpstatuscode');
 const { Usuario } = require('../models/usuario.model');
 const { generarJWT } = require('../helpers/generarJWT');
+const { Estudiante } = require('../models/estudiante.model');
+const { Empleado } = require('../models/empleado.model');
 
 const logIn = async(req = request, res = response) => {
 
@@ -9,7 +11,12 @@ const logIn = async(req = request, res = response) => {
 
     try {
 
-        const usuario = await Usuario.findOne({ correo });
+        let tipo = 'estudiante';
+        const usuario = await Usuario.findOne({
+            where: {
+                correo
+            }
+        });  
 
         // TODO: cambiar esto por bcrypt 
         if (usuario.contrasenia !== contrasenia) {
@@ -19,14 +26,26 @@ const logIn = async(req = request, res = response) => {
             });
         }
 
-        const token = await generarJWT(usuario.correo);
+        const empleado = await Empleado.findOne({
+            where: {
+                correo
+            }
+        });
+
+        if (empleado) {
+            tipo = 'empleado'
+        }
+
+        const token = await generarJWT(correo);
 
         res.json({
             ok: true,
-            usuario,
+            correo,
+            tipo,
             token
         });
     } catch (error) {
+        console.log(error);
         res.status(httpStatusCode.InternalServerError).json({
             ok: false,
             error: 'Autenticacion fallida, fallo del servidor'
