@@ -1,31 +1,48 @@
-import { AppBar, Grid, Icon, IconButton, Toolbar, Typography } from '@mui/material'
-import { Links } from './Links'
-import { Home, HomeMaxOutlined, HomeOutlined } from '@mui/icons-material'
+import { LogoutSharp } from '@mui/icons-material';
+import {
+  AppBar,
+  Grid,
+  IconButton,
+  Toolbar,
+  Typography,
+} from '@mui/material';
+import { useNavigate } from 'react-router';
 
-export const Navbar = () => {
+
+export const Navbar = ({ drawerWidth }) => {
+  const navigate = useNavigate();
+
+  const logout = () => {
+    navigate("/", {
+      replace: true,
+    });
+  };
   return (
     <AppBar
-        position='fixed'
-        sx={{
-            width: '100%'
-        }}
+      position="fixed"
+      sx={{
+        width: {sm: `calc(100% - ${drawerWidth}px)`},
+      }}
     >
-        <Toolbar>
-            <Grid 
-                container
-                direction='row'
-                justifyContent='space-between'
-                alignItems='center'
-            >
-                <Grid item>
-                    <Typography variant='h5' component='p'>
-                        TrasladaTEC
-                    </Typography>
-                </Grid>
-                <Links />
-            </Grid>
-        </Toolbar>
+      <Toolbar>
+        <Grid
+          container
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          sx={{ height: 50}}
+        >
+          <Grid item>
+            <Typography variant="h5" component="p">
+              TrasladaTEC
+            </Typography>
+          </Grid>
 
+          <IconButton onClick={logout}>
+            <LogoutSharp color="error" sx={{ fontSize: 40 }} />
+          </IconButton>
+        </Grid>
+      </Toolbar>
     </AppBar>
-  )
-}
+  );
+};

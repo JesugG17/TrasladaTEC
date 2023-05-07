@@ -1,8 +1,11 @@
 import { Navigate, Route, Routes } from 'react-router'
-import { LoginPage } from '../Auth/pages/LoginPage'
+import { LoginPage } from '../auth/pages/LoginPage'
 import { TrasladaTECRoutes } from '../trasladatec/routes/TrasladaTECRoutes'
 
 export const AppRouter = () => {
+
+  
+
   return (
     <Routes>
         
