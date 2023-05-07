@@ -10,15 +10,18 @@ export const LoginPage = () => {
 
   const { estatus, errorMessage } = useSelector(state => state.auth);
   const dispatch = useDispatch();
-  const { handleChange, correo, contraseña } = useForm({
+  const { handleChange, correo, contrasenia } = useForm({
     correo: '',
-    contraseña: ''
+    contrasenia: ''
   });
 
   const isChecking = useMemo(() => estatus === 'checando', [estatus]);
   
   const handleSubmit = async(event) => {
     event.preventDefault();
+    if (correo.length === 0 || contrasenia.length === 0) return;
+
+
     dispatch(checandoCredenciales());
  
     
@@ -69,7 +72,7 @@ export const LoginPage = () => {
                   disabled={ isChecking }
                   name='contraseña'
                   fullWidth
-                  value={ contraseña }
+                  value={ contrasenia }
                   onChange={ handleChange }
                   InputProps={{
                     startAdornment: (

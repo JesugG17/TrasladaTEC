@@ -25,7 +25,7 @@ export const EstudiantePage = () => {
 
           <Grid 
             container
-            className="box-shadow"
+            className="box-shadow animate__animated animate__fadeInUp"
             sx={{ backgroundColor: 'secondary.main', width: '50%', height: '70%', borderRadius: 3}}
             position='relative'
             left='350px'
@@ -53,7 +53,7 @@ export const EstudiantePage = () => {
 
           </Grid>
 
-            <Tooltip title='Crear solicitud'>
+            <Tooltip title='Crear solicitud' arrow placement='top'>
               <IconButton
                 size='large'
                 sx={{

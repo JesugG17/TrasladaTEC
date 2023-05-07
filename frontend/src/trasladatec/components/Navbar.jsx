@@ -4,6 +4,7 @@ import {
   Grid,
   IconButton,
   Toolbar,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import { useNavigate } from 'react-router';
@@ -17,6 +18,7 @@ export const Navbar = ({ drawerWidth }) => {
       replace: true,
     });
   };
+
   return (
     <AppBar
       position="fixed"
@@ -33,14 +35,20 @@ export const Navbar = ({ drawerWidth }) => {
           sx={{ height: 50}}
         >
           <Grid item>
-            <Typography variant="h5" component="p">
+            <Typography 
+              variant="h5" 
+              component="p"
+              sx={{ fontWeight: 700 }}
+            >
               TrasladaTEC
             </Typography>
           </Grid>
 
-          <IconButton onClick={logout}>
-            <LogoutSharp color="error" sx={{ fontSize: 40 }} />
-          </IconButton>
+          <Tooltip title='Cerrar sesion' arrow >
+            <IconButton onClick={logout}>
+              <LogoutSharp color="error" sx={{ fontSize: 40 }} />
+            </IconButton>
+          </Tooltip>
         </Grid>
       </Toolbar>
     </AppBar>
