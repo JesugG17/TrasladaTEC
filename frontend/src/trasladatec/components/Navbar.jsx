@@ -10,7 +10,7 @@ import {
 import { useNavigate } from 'react-router';
 
 
-export const Navbar = ({ drawerWidth }) => {
+export const Navbar = ({ drawerWidth, containsSidebar = true }) => {
   const navigate = useNavigate();
 
   const logout = () => {
@@ -23,7 +23,7 @@ export const Navbar = ({ drawerWidth }) => {
     <AppBar
       position="fixed"
       sx={{
-        width: {sm: `calc(100% - ${drawerWidth}px)`},
+        width: {sm: `${ containsSidebar ? `calc(100% - ${drawerWidth}px` : '100%' })`},
       }}
     >
       <Toolbar>
