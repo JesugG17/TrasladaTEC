@@ -1,8 +1,16 @@
-import { Divider, Grid, IconButton, Modal, Tooltip, Typography } from '@mui/material';
+import { useState } from 'react';
+import { Divider, Grid, IconButton, List, ListItem, ListItemText, Modal, Tooltip, Typography } from '@mui/material';
 import { TrasladaTECLayout } from '../layout/TrasladaTECLayout';
 import { AccountBoxOutlined, AddOutlined } from '@mui/icons-material';
-import { useState } from 'react';
 import { SolicitudView } from '../view/SolicitudView';
+
+const datosTemporales = [
+  'Jesus Manuel',
+  'Gastelum Chaparro',
+  'Ingenieria en sistemas',
+  '6',
+  '9.2'
+]
 
 export const EstudiantePage = () => {
   
@@ -16,40 +24,56 @@ export const EstudiantePage = () => {
     <TrasladaTECLayout>
         <Grid 
             container
-            direction='row'
-            position='relative'
-            // top='64px'
-            justifyContent='space-between'
-            // sx={{height: '100%' }}
         >
 
           <Grid 
             container
             className="box-shadow animate__animated animate__fadeInUp"
-            sx={{ backgroundColor: 'secondary.main', width: '50%', height: '70%', borderRadius: 3}}
-            position='relative'
-            left='350px'
-            top='140px'
+            direction='row'
+            alignItems='center'
+            sx={{ 
+              backgroundColor: 'secondary.main', 
+              width: '50%', 
+              height: '50%', 
+              borderRadius: 3,
+              outline: '2px solid black',
+              alignSelf: 'center',
+              margin: '0 auto'
+            }}
           >
-             <Grid item xs={12} sx={{ mt: 5}}>
-                <Typography textAlign='center' variant="h4" gutterBottom>Perfil</Typography>
-                <Divider />
-                <Typography sx={{ml: 5, mt: 2}} variant="h6" gutterBottom ><b>Nombres</b>: Jesus Manuel</Typography>
-                <Typography sx={{ml: 5}} variant="h6" gutterBottom><b>Apellidos</b>: Gastelum Chaparro</Typography>
-                <Typography sx={{ml: 5}} variant="h6" gutterBottom><b>Carrera</b>: Ingenieria en Sistem</Typography>
-                <Typography sx={{ml: 5}} variant="h6" gutterBottom><b>Semestre</b>: 6</Typography>
-                <Typography sx={{ml: 5}} variant="h6" gutterBottom><b>Promedio</b>: 9.2</Typography>
-             </Grid>
 
-             <Grid 
-              item 
+          
+            <Grid item
               xs={12}
-              sx={{height: 180, mb: 5, textAlign: 'center'}}
             >
+              <Typography textAlign='center' variant='h4'>Perfil</Typography>
+              <Divider />
+            </Grid>
+            <Grid container
+              
+            >
+              <Grid
+                item
+                xs={7}
+              >
+                <List>
+                  {
+                    datosTemporales.map( dato => (
+                      <ListItem key={ dato }>
+                        <ListItemText>{ dato }</ListItemText>
+                      </ListItem>
+                    ))
+                  }
+                </List>
+              </Grid>
+              <Grid item
+                xs={5}
+              >
                 <IconButton > 
-                  <AccountBoxOutlined sx={{ fontSize: 180}}/>
+                  <AccountBoxOutlined sx={{ fontSize: '6em', borderRadius: 2, outline: '1px solid black'}}/>
                 </IconButton>
-             </Grid>
+              </Grid>
+            </Grid>
 
           </Grid>
 
@@ -66,7 +90,7 @@ export const EstudiantePage = () => {
                 }}
                 onClick={ handleOpenApplication }
               >
-                <AddOutlined sx={{ fontSize: 30 }}/>
+                <AddOutlined sx={{ fontSize: 30  }}/>
               </IconButton>
             </Tooltip>
 
@@ -74,8 +98,10 @@ export const EstudiantePage = () => {
               open && 
               <Modal
                 open
-              >
-                <SolicitudView handleOpenApplication={ handleOpenApplication } />
+              > 
+                <Grid container>
+                  <SolicitudView handleOpenApplication={ handleOpenApplication } />
+                </Grid>
               </Modal>
             }
 

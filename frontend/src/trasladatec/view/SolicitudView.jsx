@@ -61,7 +61,7 @@ export const SolicitudView = ({ handleOpenApplication }) => {
     <Grid
       container
       component="main"
-      className="box-shadow animate__animated animate__fadeInRight"
+      className="box-shadow animate__animated animate__fadeIn"
       direction="column"
       alignItems="center"
       spacing={2}
@@ -73,7 +73,7 @@ export const SolicitudView = ({ handleOpenApplication }) => {
         height: 540,
         backgroundColor: "secondary.main",
         borderRadius: 3,
-        padding: 0,
+        // border: '1px solid black'
       }}
     >
       <Grid container direction="row" justifyContent="space-between">
@@ -97,7 +97,7 @@ export const SolicitudView = ({ handleOpenApplication }) => {
             sx={{ width: 300 }}
             options={institutos}
             onChange={onChangeInstituto}
-            disabled={ disabled }
+            disabled={disabled}
             value={instituto}
             blurOnSelect
             renderInput={(params) => {
@@ -118,7 +118,7 @@ export const SolicitudView = ({ handleOpenApplication }) => {
             name="motivo"
             options={motivos}
             onChange={onChangeMotivo}
-            disabled={ disabled }
+            disabled={disabled}
             value={motivo}
             renderInput={(params) => {
               return <TextField {...params} label="Motivo" margin="normal" />;
@@ -131,7 +131,7 @@ export const SolicitudView = ({ handleOpenApplication }) => {
             minRows={4}
             name="otroMotivo"
             onChange={handleChange}
-            disabled={ disabled }
+            disabled={disabled}
             value={otroMotivo}
             label="Otro motivo"
             variant="filled"
@@ -143,12 +143,22 @@ export const SolicitudView = ({ handleOpenApplication }) => {
             Crear solicitud
           </Button>
           {error && (
-            <Alert sx={{ mt: 2 }} severity="error" color="error" className="animate__animated animate__fadeIn">
+            <Alert
+              sx={{ mt: 2 }}
+              severity="error"
+              color="error"
+              className="animate__animated animate__fadeIn"
+            >
               Favor de llenar todos los campos
             </Alert>
           )}
           {success && (
-            <Alert severity="success" sx={{ mt: 2 }} color="success" className="animate__animated animate__fadeIn">
+            <Alert
+              severity="success"
+              sx={{ mt: 2 }}
+              color="success"
+              className="animate__animated animate__fadeIn"
+            >
               Solicitud creada exitosamente
             </Alert>
           )}

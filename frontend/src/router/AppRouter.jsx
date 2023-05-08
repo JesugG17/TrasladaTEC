@@ -4,11 +4,8 @@ import { TrasladaTECRoutes } from '../trasladatec/routes/TrasladaTECRoutes'
 
 export const AppRouter = () => {
 
-  
-
   return (
     <Routes>
-        
         <Route path="/" element={ <LoginPage />} />
         <Route path="/*" element={<TrasladaTECRoutes />}/>
 
