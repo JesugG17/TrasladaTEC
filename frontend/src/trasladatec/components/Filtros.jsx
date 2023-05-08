@@ -37,7 +37,9 @@ export const Filtros = ({ estatus, anio, handleChange }) => {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item xs={1}>
+      <Grid item 
+        xs={1} 
+      >
         <FormControl variant="outlined">
           <InputLabel id="filtro-label-2">Año</InputLabel>
           <Select

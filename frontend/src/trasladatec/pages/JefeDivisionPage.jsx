@@ -80,13 +80,7 @@ export const JefeDivisionPage = () => {
             anio={ anio }
             handleChange={ handleChange }
           />
-          {/* <Grid item
-            sx={{
-              width: '100%',
-              height: 200
-            }}
-          >
-          </Grid> */}
+          
           <Box sx={{
             height: 400,
             width: '100%'
