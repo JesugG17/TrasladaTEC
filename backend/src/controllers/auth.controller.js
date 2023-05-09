@@ -1,16 +1,15 @@
 const { response, request } = require('express')
 const { httpStatusCode } = require('httpstatuscode');
-const { Usuario } = require('../models/usuario.model');
 const { generarJWT } = require('../helpers/generarJWT');
-const { Estudiante } = require('../models/estudiante.model');
-const { Empleado } = require('../models/empleado.model');
+const { Usuario, Empleado } = require('../models');
 
 const logIn = async(req = request, res = response) => {
 
     const { correo, contrasenia } = req.body;
 
     try {
-
+        
+        // console.log(correo);
         let tipo = 'estudiante';
         const usuario = await Usuario.findOne({
             where: {

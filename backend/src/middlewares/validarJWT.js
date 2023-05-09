@@ -8,7 +8,7 @@ const validarJWT = async(req = request, res = response, next) => {
 
     const {'x-token': token} = req.headers;
 
-    if (token) {
+    if (!token) {
         return res.status(httpStatusCode.BadRequest).json({
             ok: false,
             error: 'Token no proporcionado'

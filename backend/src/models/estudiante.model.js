@@ -26,6 +26,4 @@ const Estudiante = sequelize.define('Estudiante', {
     esRegular: DataTypes.BOOLEAN
 }, {timestamps: false});
 
-module.exports = {
-    Estudiante
-}
+module.exports = Estudiante

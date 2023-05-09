@@ -11,7 +11,6 @@ const Usuario = sequelize.define('Usuario', {
     }
 }, { timestamps: false });
 
-module.exports = {
-    Usuario
-}
+module.exports = Usuario
+
 
