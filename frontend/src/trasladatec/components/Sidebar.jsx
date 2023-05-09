@@ -1,4 +1,4 @@
-import { CheckCircle, TurnedIn } from '@mui/icons-material'
+import { CheckCircle } from '@mui/icons-material'
 import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material'
 import React from 'react'
 
@@ -6,18 +6,26 @@ export const Sidebar = ({ drawerWidth }) => {
   return (
     <Box
         component='nav'
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 }}}
+        sx={{ 
+            width: { sm: drawerWidth }, 
+            flexShrink: { sm: 0 },
+        }}
     >
         <Drawer
             variant='permanent'
             open
+            PaperProps={{
+                sx: {
+                    backgroundColor: 'primary.light'
+                }
+            }}
             sx={{
                 display: {xs: 'block'},
                 '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
             }}
         >
             <Toolbar>
-                <Typography variant='h6'>Historial de solicitudes</Typography>
+                <Typography color='white' variant='h6'>Historial de solicitudes</Typography>
 
             </Toolbar>
             <Divider />
@@ -34,7 +42,11 @@ export const Sidebar = ({ drawerWidth }) => {
                                 }}>
                                     <CheckCircle />
                                 </ListItemIcon>
-                                <Grid container>
+                                <Grid container
+                                    sx={{
+                                        color: 'white'
+                                    }}
+                                >
                                     <ListItemText primary={text} />
                                     <ListItemText secondary={'Some text'} />
                                 </Grid>

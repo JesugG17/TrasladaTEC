@@ -34,7 +34,7 @@ export const LoginPage = () => {
       direction='column'
       justifyContent='center'
       alignItems='center'
-      sx={{minHeight: '100vh', backgroundColor: 'primary.main', padding: 4}}
+      sx={{minHeight: '100vh', backgroundColor: 'primary.light', padding: 4}}
     >
       <Grid
         item

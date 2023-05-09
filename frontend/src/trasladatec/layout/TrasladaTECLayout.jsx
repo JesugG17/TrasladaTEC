@@ -4,7 +4,7 @@ import { Sidebar } from '../components/Sidebar'
 
 export const TrasladaTECLayout = ({ children, containsSidebar = true }) => {
   return (
-    <Box bgcolor='#454384' sx={{ display: 'flex', height: '100vh'}}>
+    <Box bgcolor='secondary.light' sx={{ display: 'flex', height: '100vh'}}>
         <Navbar 
           drawerWidth={400}
           containsSidebar={ containsSidebar }

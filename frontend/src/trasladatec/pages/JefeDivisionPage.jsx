@@ -1,18 +1,10 @@
 import {
   Box,
   Divider,
-  FormControl,
   Grid,
-  Icon,
-  InputLabel,
-  MenuItem,
-  Select,
   Typography,
 } from "@mui/material";
 import { TrasladaTECLayout } from "../layout/TrasladaTECLayout";
-import { useForm } from "../../hooks/useForm";
-import { Filtros } from "../components/Filtros";
-import { CheckCircle, CheckCircleOutline } from "@mui/icons-material";
 import { DataGrid } from "@mui/x-data-grid";
 
 const columns = [
@@ -49,14 +41,7 @@ const traslados = [
 ]
 
 export const JefeDivisionPage = () => {
-
-
-  const { estatus, anio, handleChange } = useForm({
-    estatus: '',
-    anio: ''
-  })
   
-  console.log(traslados);;
 
   return (
     <TrasladaTECLayout containsSidebar={false}>
@@ -75,11 +60,6 @@ export const JefeDivisionPage = () => {
             Solicitudes de traslado
           </Typography>
           <Divider />  
-          <Filtros 
-            estatus={ estatus }
-            anio={ anio }
-            handleChange={ handleChange }
-          />
           
           <Box sx={{
             height: 400,
@@ -93,41 +73,6 @@ export const JefeDivisionPage = () => {
               rows={traslados}
             />
           </Box>
-
-
-
-          
-          {/* <Grid container
-            direction='column'
-            
-            
-          >
-            <Grid container
-              direction='row'
-              alignItems='center'
-              justifyContent='space-between'
-              sx={{
-                width: '100%',
-                height: 100,
-                outline: '1px solid black',
-                gap: 2,
-                backgroundColor: 'primary.main',
-                borderRadius: 2,
-                mt: 2
-              }}
-            >
-              <Grid item>
-                <Icon>
-                  <CheckCircleOutline color="success" />
-                </Icon>
-                <Typography color='white'>Folio: {1234} </Typography>
-              </Grid>
-              <Grid item>
-                <Typography></Typography>
-              </Grid>
-            </Grid>
-          </Grid> */}
-          
 
         </Grid>
       </Grid>
