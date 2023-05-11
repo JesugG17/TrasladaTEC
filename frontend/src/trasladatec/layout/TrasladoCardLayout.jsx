@@ -1,6 +1,6 @@
 import { Button, Grid, ListItem, ListItemText } from "@mui/material";
 
-export const TrasladoCard = () => {
+export const TrasladoCardLayout = ({ children }) => {
   return (
     <ListItem
       className="box-shadow"
@@ -34,20 +34,7 @@ export const TrasladoCard = () => {
             <Grid item>
               <Button variant="contained">Ver detalle</Button>
             </Grid>
-            <Grid item>
-              <Button
-                variant="outlined"
-                color="error"
-                sx={{
-                  mr: 2,
-                }}
-              >
-                Rechazar
-              </Button>
-              <Button variant="outlined" color="success">
-                Aceptar
-              </Button>
-            </Grid>
+            <Grid item>{children}</Grid>
           </Grid>
         </Grid>
       </Grid>
