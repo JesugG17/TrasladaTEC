@@ -1,4 +1,4 @@
-import { LogoutSharp } from '@mui/icons-material';
+import { LogoutSharp } from "@mui/icons-material";
 import {
   AppBar,
   Grid,
@@ -6,9 +6,8 @@ import {
   Toolbar,
   Tooltip,
   Typography,
-} from '@mui/material';
-import { useNavigate } from 'react-router';
-
+} from "@mui/material";
+import { useNavigate } from "react-router";
 
 export const Navbar = ({ drawerWidth, containsSidebar = true }) => {
   const navigate = useNavigate();
@@ -23,7 +22,9 @@ export const Navbar = ({ drawerWidth, containsSidebar = true }) => {
     <AppBar
       position="fixed"
       sx={{
-        width: {sm: `${ containsSidebar ? `calc(100% - ${drawerWidth}px` : '100%' })`},
+        width: {
+          sm: `${containsSidebar ? `calc(100% - ${drawerWidth}px` : "100%"})`,
+        },
       }}
     >
       <Toolbar>
@@ -32,19 +33,15 @@ export const Navbar = ({ drawerWidth, containsSidebar = true }) => {
           direction="row"
           justifyContent="space-between"
           alignItems="center"
-          sx={{ height: 50}}
+          sx={{ height: 50 }}
         >
           <Grid item>
-            <Typography 
-              variant="h5" 
-              component="p"
-              sx={{ fontWeight: 700 }}
-            >
+            <Typography variant="h5" component="p" sx={{ fontWeight: 700 }}>
               TrasladaTEC
             </Typography>
           </Grid>
 
-          <Tooltip title='Cerrar sesion' arrow >
+          <Tooltip title="Cerrar sesion" arrow>
             <IconButton onClick={logout}>
               <LogoutSharp color="error" sx={{ fontSize: 40 }} />
             </IconButton>

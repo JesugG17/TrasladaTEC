@@ -1,15 +1,14 @@
-import { Navigate, Route, Routes } from 'react-router'
-import { LoginPage } from '../auth/pages/LoginPage'
-import { TrasladaTECRoutes } from '../trasladatec/routes/TrasladaTECRoutes'
+import { Navigate, Route, Routes } from "react-router";
+import { LoginPage } from "../auth/pages/LoginPage";
+import { TrasladaTECRoutes } from "../trasladatec/routes/TrasladaTECRoutes";
 
 export const AppRouter = () => {
-
   return (
     <Routes>
-        <Route path="/" element={ <LoginPage />} />
-        <Route path="/*" element={<TrasladaTECRoutes />}/>
+      <Route path="/" element={<LoginPage />} />
+      <Route path="/*" element={<TrasladaTECRoutes />} />
 
-        <Route path="/*" element={ <Navigate to='/'/>} />
+      <Route path="/*" element={<Navigate to="/" />} />
     </Routes>
-  )
-}
+  );
+};
