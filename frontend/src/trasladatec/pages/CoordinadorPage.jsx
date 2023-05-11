@@ -4,7 +4,7 @@ import {
   Typography,
 } from "@mui/material";
 import { TrasladaTECLayout } from "../layout/TrasladaTECLayout";
-import { TrasladoCard } from "../components/TrasladoCard";
+import { TrasladosCoordinador } from "../components/TrasladosCoordinador";
 
 export const CoordinadorPage = () => {
   return (
@@ -45,7 +45,7 @@ export const CoordinadorPage = () => {
           </Grid>
 
           <List sx={{ width: "100%" }}>
-            <TrasladoCard />
+            <TrasladosCoordinador />
           </List>
         </Grid>
       </Grid>
