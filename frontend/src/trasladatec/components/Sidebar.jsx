@@ -25,10 +25,22 @@ export const Sidebar = ({ drawerWidth }) => {
             }}
         >
             <Toolbar>
-                <Typography color='white' variant='h6'>Historial de solicitudes</Typography>
+                <Typography 
+                    
+                    color='white' 
+                    variant='h6'
+                    component='div'
+                    sx={{
+                        borderBottom: '1px solid white',
+                        width: '100%',
+                        textAlign: 'center',
+                        padding: 1
+                    }}
+                >
+                    Historial de solicitudes
+                </Typography>
 
             </Toolbar>
-            <Divider />
             <List>
                 {
                     ['Solicitud1', 'Solicitud2', 'Solicitud3'].map( text => (

@@ -1,42 +1,45 @@
 import {
   Box,
+  Button,
   Divider,
   Grid,
+  IconButton,
   Typography,
 } from "@mui/material";
 import { TrasladaTECLayout } from "../layout/TrasladaTECLayout";
 import { DataGrid } from "@mui/x-data-grid";
+import { PictureAsPdfRounded } from "@mui/icons-material";
 
 const columns = [
-  {field: 'folio'},
-  {field: 'fecha'},
-  {field: 'estatus'},
-  {field: 'estudiante'},
-  {field: 'coordinador'},
-  {field: 'institutoOrigen', width: 120},
-  {field: 'institutoDestino', width: 150}
+  {field: 'Folio', width: 150},
+  {field: 'Fecha', width: 150},
+  {field: 'Estatus', width: 150},
+  {field: 'Estudiante', width: 150},
+  {field: 'Coordinador', width: 150},
+  {field: 'InstitutoOrigen', width: 200},
+  {field: 'InstitutoDestino', width: 200}
 ]
 
 const traslados = [
   {
     id: 1,
-    folio: 12345,
-    fecha: new Date().getDate(),
-    estatus: 'Activo',
-    estudiante: 'Jesus Manuel',
-    coordinador: 'Edna Rocio',
-    institutoOrigen: 'Tecnologico de Culiacan',
-    institutoDestino: 'Tecnologico de Navolato'
+    Folio: 12345,
+    Fecha: new Date().getDate(),
+    Estatus: 'Activo',
+    Estudiante: 'Jesus Manuel',
+    Coordinador: 'Edna Rocio',
+    InstitutoOrigen: 'Tecnologico de Culiacaan',
+    InstitutoDestino: 'Tecnologico de Navolato'
   },
   {
     id: 2,
-    folio: 12345,
-    fecha: new Date().getDate(),
-    estatus: 'Activo',
-    estudiante: 'Jesus Manuel',
-    coordinador: 'Edna Rocio',
-    institutoOrigen: 'Tecnologico de Culiacan',
-    institutoDestino: 'Tecnologico de Navolato'
+    Folio: 12345,
+    Fecha: new Date().getDate(),
+    Estatus: 'Rechazado',
+    Estudiante: 'Jesus Manuel',
+    Coordinador: 'Chayito Rocio',
+    InstitutoOrigen: 'Tecnologico de Culiacan',
+    InstitutoDestino: 'Tecnologico de Navolato'
   }
 ]
 
@@ -56,24 +59,49 @@ export const JefeDivisionPage = () => {
             padding: 2,
           }}
         >
-          <Typography textAlign="center" variant="h4">
+          <Typography 
+            textAlign="center" 
+            variant="h4"
+            sx={{
+              borderBottom: '2px solid black',
+              padding: 1,
+              mb: 2
+            }}
+          >
             Solicitudes de traslado
           </Typography>
-          <Divider />  
-          
+
           <Box sx={{
-            height: 400,
+            height: 200,
             width: '100%'
           }}>
 
             <DataGrid 
               autoHeight
-              disableColumnFilter
               columns={columns} 
               rows={traslados}
             />
           </Box>
 
+          <Grid item
+            xs={12}
+            sx={{
+              mt: 10
+            }}
+          >
+            <IconButton
+              sx={{
+                backgroundColor: 'primary.main',
+                borderRadius: 2,
+                color: 'white',
+                padding: 2,
+                ':hover': { backgroundColor: 'primary.light' }
+              }}
+            >
+              <PictureAsPdfRounded sx={{ mr: 1}}/>
+              <Typography>Generar reporte</Typography>
+            </IconButton>
+          </Grid>
         </Grid>
       </Grid>
     </TrasladaTECLayout>
