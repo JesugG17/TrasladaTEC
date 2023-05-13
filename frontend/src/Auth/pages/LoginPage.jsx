@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Grid,
   InputAdornment,
@@ -8,16 +9,29 @@ import {
 import { EmailOutlined, PasswordOutlined } from "@mui/icons-material";
 import { useForm } from "../../hooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
-import { checandoCredenciales } from "../../store/auth/authSlice";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import { startLogInWithEmailAndPassword } from "../../store/auth/thunks";
+import { useNavigate } from "react-router";
 
 export const LoginPage = () => {
-  const { estatus, errorMessage } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const {
+    estatus,
+    errorMessage,
+    correo: email,
+    tipo,
+  } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
-  const { handleChange, correo, contrasenia } = useForm({
+  const { handleChange, correo, contrasenia, formState } = useForm({
     correo: "",
     contrasenia: "",
   });
+
+
+  useEffect(() => {
+    handleRedirect();
+  }, [estatus]);
 
   const isChecking = useMemo(() => estatus === "checando", [estatus]);
 
@@ -25,7 +39,15 @@ export const LoginPage = () => {
     event.preventDefault();
     if (correo.length === 0 || contrasenia.length === 0) return;
 
-    dispatch(checandoCredenciales());
+    dispatch(startLogInWithEmailAndPassword(formState));
+  };
+
+  const handleRedirect = () => {
+    if (!email || !tipo) return;
+
+    navigate(`/${tipo}`, {
+      replace: true,
+    });
   };
 
   return (
@@ -76,7 +98,7 @@ export const LoginPage = () => {
                 label="contraseña"
                 type="password"
                 disabled={isChecking}
-                name="contraseña"
+                name="contrasenia"
                 fullWidth
                 value={contrasenia}
                 onChange={handleChange}
@@ -100,6 +122,13 @@ export const LoginPage = () => {
                 Ingresar
               </Button>
             </Grid>
+            {!!errorMessage && (
+              <Grid item xs={12}>
+                <Alert severity="error" color="error">
+                  <Typography textAlign="center">{errorMessage}</Typography>
+                </Alert>
+              </Grid>
+            )}
           </Grid>
         </form>
       </Grid>

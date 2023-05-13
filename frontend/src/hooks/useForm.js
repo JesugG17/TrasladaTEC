@@ -5,7 +5,6 @@ export const useForm = (initialState = {}) => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log(name);
     setFormState({
       ...formState,
       [name]: value

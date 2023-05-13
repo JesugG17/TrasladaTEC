@@ -6,12 +6,14 @@ export const startLogInWithEmailAndPassword = (usuario) => {
         dispatch(checandoCredenciales());
 
 
-        // const result = await logIn(usuario);
+        const result = await logIn(usuario);
+        console.log(result);
+        if (!result.ok) {
+            return dispatch( logout(result) );
+        }
+        const { correo, tipo } = result.usuario;
 
-        // if (!result.ok) {
-        //     return dispatch( logout(result) );
-        // }
-
-        // dispatch(login(result));
+    
+        dispatch(login({correo, tipo}));
     }
 }

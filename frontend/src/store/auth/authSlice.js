@@ -4,29 +4,26 @@ export const authSlice = createSlice({
     name: 'auth',
     initialState: {
         estatus: 'no-autorizado', // 'no-autorizado', 'autorizado', 'checando'
-        nombre: null,
-        apellidoMat: null,
-        apellidoPat: null,
         correo: null,
-        carrera: null,
-        departamento: null,
-        rol: null,
-        instituto: null,
-        semestre: null,
-        promedio: null,
-        esRegular: null,
-        errorMessage: null
+        tipo: null,
+        errorMessage:null
 
     },
     reducers: {
-        login: (state, payload) => {
+        login: (state, {payload}) => {
             return {
-                ...state
+                ...state,
+                ...payload,
+                estatus: 'autorizado'
             }
         },
-        logout: (state, payload) => {
+        logout: (state, {payload}) => {
             return {
-                ...state
+                ...state,
+                ...payload,
+                correo: null,
+                tipo: null,
+                estatus: 'no-autorizado'
             }
         },
         checandoCredenciales: (state) => {

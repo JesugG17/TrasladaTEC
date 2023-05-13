@@ -7,12 +7,18 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { logout } from "../../store/auth/authSlice";
 
 export const Navbar = ({ drawerWidth, containsSidebar = true }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const logout = () => {
+  const handleLogout = () => {
+
+    dispatch(logout());
+
     navigate("/", {
       replace: true,
     });
@@ -42,7 +48,7 @@ export const Navbar = ({ drawerWidth, containsSidebar = true }) => {
           </Grid>
 
           <Tooltip title="Cerrar sesion" arrow>
-            <IconButton onClick={logout}>
+            <IconButton onClick={handleLogout}>
               <LogoutSharp color="error" sx={{ fontSize: 40 }} />
             </IconButton>
           </Tooltip>
