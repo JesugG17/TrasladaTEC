@@ -7,6 +7,8 @@ import {
 } from "../pages";
 
 export const TrasladaTECRoutes = () => {
+  console.log('hola');
+
   return (
     <Routes>
       <Route path="/estudiante" element={<EstudiantePage />} />

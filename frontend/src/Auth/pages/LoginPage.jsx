@@ -28,9 +28,9 @@ export const LoginPage = () => {
     contrasenia: "",
   });
 
-
   useEffect(() => {
     handleRedirect();
+    // console.log('hola');
   }, [estatus]);
 
   const isChecking = useMemo(() => estatus === "checando", [estatus]);
@@ -45,6 +45,7 @@ export const LoginPage = () => {
   const handleRedirect = () => {
     if (!email || !tipo) return;
 
+    console.log(tipo);
     navigate(`/${tipo}`, {
       replace: true,
     });
