@@ -21,7 +21,7 @@ export const theme = createTheme({
         },
         warning: {
             main: yellow.A200
-        }
+        },
     },
     typography: {
         fontFamily: [

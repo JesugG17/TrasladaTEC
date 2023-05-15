@@ -13,13 +13,10 @@ export const AppRouter = () => {
 
   return (
     <Routes>
-      {estatus === "no-autorizado" ? (
-        <Route path="/" element={<LoginPage />} />
-      ) : (
-        <Route path="/*" element={<TrasladaTECRoutes />} />
-      )}
 
-      <Route path="/*" element={<Navigate to="/" />} />
+      <Route path="/login" element={<LoginPage />}/>
+      <Route path="/*" element={<TrasladaTECRoutes />}/>
+      <Route path="/*" element={<Navigate to="/login" />} />
     </Routes>
   );
 };

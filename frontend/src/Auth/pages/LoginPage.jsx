@@ -9,18 +9,14 @@ import {
 import { EmailOutlined, PasswordOutlined } from "@mui/icons-material";
 import { useForm } from "../../hooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { startLogInWithEmailAndPassword } from "../../store/auth/thunks";
-import { useNavigate } from "react-router";
+import { logIn } from "../helpers/login";
+import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const {
-    estatus,
-    errorMessage,
-    correo: email,
-    tipo,
-  } = useSelector((state) => state.auth);
+  const { estatus, errorMessage } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const { handleChange, correo, contrasenia, formState } = useForm({
@@ -28,27 +24,22 @@ export const LoginPage = () => {
     contrasenia: "",
   });
 
-  useEffect(() => {
-    handleRedirect();
-    // console.log('hola');
-  }, [estatus]);
-
   const isChecking = useMemo(() => estatus === "checando", [estatus]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (correo.length === 0 || contrasenia.length === 0) return;
 
-    dispatch(startLogInWithEmailAndPassword(formState));
-  };
+    try {
+      const result = await logIn(formState);
+      dispatch(startLogInWithEmailAndPassword(result));
 
-  const handleRedirect = () => {
-    if (!email || !tipo) return;
-
-    console.log(tipo);
-    navigate(`/${tipo}`, {
-      replace: true,
-    });
+      navigate(`/${result.usuario.tipo}`, {
+        replace: true
+      });
+    } catch (error) {
+      console.log("Algo salio mal LOGINPAGE");
+    }
   };
 
   return (

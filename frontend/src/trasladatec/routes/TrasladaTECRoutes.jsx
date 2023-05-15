@@ -1,13 +1,19 @@
-import { Navigate, Route, Routes } from "react-router";
+import { Navigate, Route, Routes, useLocation } from "react-router";
 import {
   EstudiantePage,
   JefeDivisionPage,
   CoordinadorPage,
   ControlEscolarPage,
 } from "../pages";
+import { useSelector } from "react-redux";
 
 export const TrasladaTECRoutes = () => {
-  console.log('hola');
+
+  const { estatus } = useSelector(state => state.auth);
+
+  if (estatus !== 'autorizado') {
+    return <Navigate to='/login' />
+  }
 
   return (
     <Routes>
@@ -15,7 +21,7 @@ export const TrasladaTECRoutes = () => {
       <Route path="/jefe" element={<JefeDivisionPage />} />
       <Route path="/coordinador" element={<CoordinadorPage />} />
       <Route path="/control-escolar" element={<ControlEscolarPage />} />
-      <Route path="/*" element={<Navigate to="/" />} />
+      <Route path="/*" element={<Navigate to="/login" />} />
     </Routes>
   );
 };
