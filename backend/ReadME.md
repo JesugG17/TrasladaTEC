@@ -8,6 +8,11 @@ Clonar el repositorio y reconstruir lo modulos de node
 npm install
 ~~~
 
+Para correr el servidor ejecutar el siguiente comando
+~~~
+npm run dev
+~~~
+
 # Stack
 
 * NodeJS

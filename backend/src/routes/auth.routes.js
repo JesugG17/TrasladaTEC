@@ -9,7 +9,7 @@ const router = Router();
 
 router.post('/login',[
     check('correo', 'el correo no es valido').isEmail(),
-    check('contrasenia', 'la contrasenia debe de ser de minimo 6 caracteres').isLength({min: 6}),
+    check('contrasenia', 'la contrasenia debe de ser de minimo 6 caracteres').isLength({min: 4}),
     check('correo').custom(existeCorreo),
     checarErrores
 ], logIn);

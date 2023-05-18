@@ -1,7 +1,7 @@
 const { response, request } = require("express")
 const { httpStatusCode } = require('httpstatuscode');
 const jwt = require('jsonwebtoken');
-const { Usuario } = require("../models/usuario.model");
+const { Usuario } = require("../models");
 
 
 const validarJWT = async(req = request, res = response, next) => {
@@ -28,10 +28,11 @@ const validarJWT = async(req = request, res = response, next) => {
             });
         }
 
-        req.usuario = usuario;
+        req.correo = correo;
 
         next();
     } catch (error) {
+        console.log(error);
         res.status(httpStatusCode.InternalServerError).json({
             ok: false,
             error: 'Error interno del servidor'
