@@ -25,17 +25,14 @@ export const EstudiantePage = () => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    console.log(correo);
     handleChargeStudent();
   }, []);
 
   const handleChargeStudent = async() => {
     try {
 
-      const { data } = await usuarioApi.get(`/estudiante`, {
-        correo
-      });
-      
+      const { data } = await usuarioApi.get(`/estudiante/${correo}`);
+      console.log(data);
       setEstudiante(data);
 
     } catch (error) {
