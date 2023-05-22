@@ -17,10 +17,22 @@ export const TrasladaTECRoutes = () => {
 
   return (
     <Routes>
-      <Route path="/estudiante" element={<EstudiantePage />} />
       <Route path="/jefe" element={<JefeDivisionPage />} />
       <Route path="/coordinador" element={<CoordinadorPage />} />
       <Route path="/control-escolar" element={<ControlEscolarPage />} />
+      {/* {
+        (tipo === 'jefe') &&
+        
+      }
+
+      {
+        (tipo === 'coordinador') &&
+      }
+
+      {
+        (tipo === 'control-escolar') &&
+      } */}
+      <Route path="/estudiante" element={<EstudiantePage />} />
       <Route path="/*" element={<Navigate to="/login" />} />
     </Routes>
   );

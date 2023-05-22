@@ -32,6 +32,7 @@ export const LoginPage = () => {
 
     try {
       const result = await logIn(formState);
+      console.log(result);
       dispatch(startLogInWithEmailAndPassword(result));
 
       navigate(`/${result.usuario.tipo}`, {

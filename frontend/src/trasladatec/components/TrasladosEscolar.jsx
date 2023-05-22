@@ -5,7 +5,7 @@ export const TrasladosEscolar = () => {
   return (
     <TrasladoCardLayout>
       <Button variant="outlined" color="success">
-        Aceptar documentos
+        Finalizar proceso
       </Button>
     </TrasladoCardLayout>
   );
