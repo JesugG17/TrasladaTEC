@@ -9,7 +9,6 @@ const logIn = async(req = request, res = response) => {
 
     try {
         
-        // console.log(correo);
         let tipo = 'estudiante';
         const usuario = await Usuario.findOne({
             where: {

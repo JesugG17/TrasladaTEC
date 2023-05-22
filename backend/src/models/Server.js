@@ -9,7 +9,8 @@ class Server {
         this.app = express();
         this.paths = {
             auth: '/api/auth',
-            traslados: '/api/traslados'
+            traslados: '/api/traslados',
+            estudiante: '/api/usuarios'
         };
 
         this.middlewares();
@@ -39,6 +40,7 @@ class Server {
     routes() {
         this.app.use(this.paths.traslados, require('../routes/traslados.routes'));
         this.app.use(this.paths.auth, require('../routes/auth.routes'));
+        this.app.use(this.paths.estudiante, require('../routes/usuarios.routes'));
     }
 
     listen() {
