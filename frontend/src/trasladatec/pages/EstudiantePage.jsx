@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Divider,
   Grid,
@@ -13,21 +13,44 @@ import {
 import { TrasladaTECLayout } from "../layout/TrasladaTECLayout";
 import { AccountBoxOutlined, AddOutlined } from "@mui/icons-material";
 import { SolicitudView } from "../view/SolicitudView";
+import { useSelector } from "react-redux";
+import { usuarioApi } from "../../api/usuario.api";
+import { CheckingAuth } from "../../router/components/CheckingAuth";
 
-const datosTemporales = [
-  "Jesus Manuel",
-  "Gastelum Chaparro",
-  "Ingenieria en sistemas",
-  "6",
-  "9.2",
-];
 
 export const EstudiantePage = () => {
+
+  const { correo } = useSelector(state => state.auth);
+  const [estudiante, setEstudiante] = useState();
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    console.log(correo);
+    handleChargeStudent();
+  }, []);
+
+  const handleChargeStudent = async() => {
+    try {
+
+      const { data } = await usuarioApi.get(`/estudiante`, {
+        correo
+      });
+      
+      setEstudiante(data);
+
+    } catch (error) {
+      console.log('Algo salio mal');
+    }
+  }
 
   const handleOpenApplication = () => {
     setOpen(!open);
   };
+
+
+  if (!estudiante){
+    return <CheckingAuth />
+  }
 
   return (
     <TrasladaTECLayout>
@@ -56,11 +79,21 @@ export const EstudiantePage = () => {
           <Grid container>
             <Grid item xs={7}>
               <List>
-                {datosTemporales.map((dato) => (
-                  <ListItem key={dato}>
-                    <ListItemText>{dato}</ListItemText>
-                  </ListItem>
-                ))}
+                <ListItem>
+                  <ListItemText>NumControl: {estudiante.numControl}</ListItemText>
+                </ListItem>
+                <ListItem>
+                  <ListItemText>Nombre: {estudiante.estNombre}</ListItemText>
+                </ListItem>
+                <ListItem>
+                  <ListItemText>Apellidos: {`${estudiante.estApePat} ${estudiante.estApeMat}`}</ListItemText>
+                </ListItem>
+                <ListItem>
+                  <ListItemText>Semestre: {estudiante.semestre}</ListItemText>
+                </ListItem>
+                <ListItem>
+                  <ListItemText>Promedio: {estudiante.promedio}</ListItemText>
+                </ListItem>
               </List>
             </Grid>
             <Grid item xs={5}>

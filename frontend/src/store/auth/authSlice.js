@@ -14,7 +14,8 @@ export const authSlice = createSlice({
             return {
                 ...state,
                 ...payload,
-                estatus: 'autorizado'
+                estatus: 'autorizado',
+                errorMessage: null
             }
         },
         logout: (state, {payload}) => {
