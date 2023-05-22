@@ -1,12 +1,15 @@
 const { request, response } = require("express");
 const { Estudiante } = require("../models");
 
-
 const obtenerEstudiante = async(req = request, res = response) => {
 
     const { correo } = req.body;
 
-    const estudiante = await Estudiante.findOne({ correo });
+    const estudiante = await Estudiante.findOne({
+        where: {
+            correo
+        }
+    });
 
     res.json(estudiante);
 }

@@ -19,11 +19,8 @@ const Estudiante = sequelize.define('Estudiante', {
         type: DataTypes.INTEGER,
         references: 'Institutos',
     },
-    correo: {
-        type: DataTypes.STRING,
-        references: 'Usuarios'
-    },
+    correo: DataTypes.STRING,
     esRegular: DataTypes.BOOLEAN
-}, {timestamps: false});
+}, {timestamps: false, tableName:'Estudiantes'});
 
 module.exports = Estudiante
