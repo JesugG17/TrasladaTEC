@@ -5,7 +5,7 @@ const { checarErrores } = require('../middlewares/checarErrores');
 
 const router = Router();
 
-router.get('/estudiante', [
+router.get('/estudiante/:correo', [
     check('correo').not().isEmpty(),
     checarErrores
 ], obtenerEstudiante);

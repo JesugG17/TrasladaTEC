@@ -3,7 +3,7 @@ const { Estudiante } = require("../models");
 
 const obtenerEstudiante = async(req = request, res = response) => {
 
-    const { correo } = req.body;
+    const { correo } = req.params;
 
     const estudiante = await Estudiante.findOne({
         where: {
