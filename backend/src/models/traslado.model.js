@@ -8,11 +8,6 @@ const Traslado = sequelize.define('Traslado', {
         autoIncrement: true
     },
     fechaTraslado: DataTypes.DATEONLY,
-    fechaFinalizacion: {
-        type: DataTypes.DATEONLY,
-        allowNull: true
-    },
-    estatus: DataTypes.STRING,
     motivo: DataTypes.STRING,
     instituto_Origen: DataTypes.STRING,
     instituto_Destino: DataTypes.STRING,

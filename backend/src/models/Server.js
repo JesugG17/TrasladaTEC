@@ -10,7 +10,8 @@ class Server {
         this.paths = {
             auth: '/api/auth',
             traslados: '/api/traslados',
-            estudiante: '/api/usuarios'
+            estudiante: '/api/usuarios',
+            institutos: '/api/institutos'
         };
 
         this.middlewares();
@@ -43,6 +44,7 @@ class Server {
         this.app.use(this.paths.traslados, require('../routes/traslados.routes'));
         this.app.use(this.paths.auth, require('../routes/auth.routes'));
         this.app.use(this.paths.estudiante, require('../routes/usuarios.routes'));
+        this.app.use(this.paths.institutos, require('../routes/institutos.routes'));
     }
 
     listen() {
