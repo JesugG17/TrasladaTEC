@@ -16,41 +16,52 @@ import { SolicitudView } from "../view/SolicitudView";
 import { useSelector } from "react-redux";
 import { usuarioApi } from "../../api/usuario.api";
 import { CheckingAuth } from "../../router/components/CheckingAuth";
-
+import { Sidebar } from "../components/Sidebar";
+import { getTraslados } from "../helpers/traslados";
 
 export const EstudiantePage = () => {
-
-  const { correo } = useSelector(state => state.auth);
+  const { correo } = useSelector((state) => state.auth);
   const [estudiante, setEstudiante] = useState();
   const [open, setOpen] = useState(false);
+  const [traslados, setTraslados] = useState([]);
 
   useEffect(() => {
-    handleChargeStudent();
+    cargarEstudiante();
+    cargarTrasladosEstudiante();
   }, []);
 
-  const handleChargeStudent = async() => {
+  const cargarTrasladosEstudiante = async () => {
     try {
-
-      const { data } = await usuarioApi.get(`/estudiante/${correo}`);
-      console.log(data);
-      setEstudiante(data);
-
+      const data = await getTraslados(correo);
+      setTraslados(data);
     } catch (error) {
-      console.log('Algo salio mal');
+      console.log("Fallo al pedir los traslados");
     }
-  }
+  };
+
+  const cargarEstudiante = async () => {
+    try {
+      const { data } = await usuarioApi.get(`/estudiante/${correo}`);
+      setEstudiante(data);
+    } catch (error) {
+      console.log("Algo salio mal");
+    }
+  };
 
   const handleOpenApplication = () => {
     setOpen(!open);
   };
 
-
-  if (!estudiante){
-    return <CheckingAuth />
+  if (!estudiante || !traslados) {
+    return <CheckingAuth />;
   }
 
   return (
     <TrasladaTECLayout>
+      <Sidebar 
+        drawerWidth={400}
+        traslados={ traslados} 
+      />
       <Grid container>
         <Grid
           container
@@ -77,13 +88,18 @@ export const EstudiantePage = () => {
             <Grid item xs={7}>
               <List>
                 <ListItem>
-                  <ListItemText>NumControl: {estudiante.numControl}</ListItemText>
+                  <ListItemText>
+                    NumControl: {estudiante.numControl}
+                  </ListItemText>
                 </ListItem>
                 <ListItem>
                   <ListItemText>Nombre: {estudiante.estNombre}</ListItemText>
                 </ListItem>
                 <ListItem>
-                  <ListItemText>Apellidos: {`${estudiante.estApePat} ${estudiante.estApeMat}`}</ListItemText>
+                  <ListItemText>
+                    Apellidos:{" "}
+                    {`${estudiante.estApePat} ${estudiante.estApeMat}`}
+                  </ListItemText>
                 </ListItem>
                 <ListItem>
                   <ListItemText>Semestre: {estudiante.semestre}</ListItemText>
@@ -127,7 +143,10 @@ export const EstudiantePage = () => {
         {open && (
           <Modal open>
             <Grid container>
-              <SolicitudView handleOpenApplication={handleOpenApplication} />
+              <SolicitudView
+                setTraslados={setTraslados}
+                handleOpenApplication={handleOpenApplication}
+              />
             </Grid>
           </Modal>
         )}

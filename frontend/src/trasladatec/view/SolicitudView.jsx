@@ -5,15 +5,21 @@ import {
   Grid,
   IconButton,
   TextField,
-  Typography,
 } from "@mui/material";
 import { CloseOutlined } from "@mui/icons-material";
 import { useSolicitud } from "../hooks/useSolicitud";
+import { postTraslado } from "../helpers/traslados";
+import { useEffect, useState } from "react";
+import { getInstitutos } from "../helpers/institutos";
+import { useSelector } from "react-redux";
 
-const institutos = ["Culiacan", "Hermosillo", "CDMX", "Mazatlan"];
-const motivos = ["Familiar", "Personal"];
+// const institutos = ["Culiacan", "Hermosillo", "CDMX", "Mazatlan"];
 
-export const SolicitudView = ({ handleOpenApplication }) => {
+export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
+
+  const { correo } = useSelector(state => state.auth);
+  const [institutos, setInstitutos] = useState([]);
+
   const {
     motivo,
     instituto,
@@ -21,10 +27,43 @@ export const SolicitudView = ({ handleOpenApplication }) => {
     error,
     success,
     handleChange,
-    handleSubmit,
+    resetAll,
     onChangeInstituto,
+    setError,
+    setSuccess
   } = useSolicitud();
 
+  useEffect(() => {
+    cargarInstitutos()
+  }, []);
+
+
+  const cargarInstitutos = async() => {
+    try {
+      const data = await getInstitutos(correo);
+      const institutosDisponibles = data.map( instituto => instituto.instNombre);
+      setInstitutos(institutosDisponibles);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!instituto || motivo.length === 0) {
+      setError(true);
+      setSuccess(false);
+      return;
+    }
+
+    const { data } = await postTraslado({
+      motivo,
+      institutoDestino: instituto,
+    });
+    setTraslados((traslados) => [...traslados, data]);
+    resetAll();
+  };
   return (
     <Grid
       container
@@ -44,7 +83,6 @@ export const SolicitudView = ({ handleOpenApplication }) => {
       }}
     >
       <Grid container direction="row" justifyContent="flex-end">
-     
         <IconButton sx={{ mr: 5 }} onClick={handleOpenApplication}>
           <CloseOutlined sx={{ fontSize: 30 }} color="error" />
         </IconButton>
@@ -85,7 +123,13 @@ export const SolicitudView = ({ handleOpenApplication }) => {
           />
         </Grid>
         <Grid item xs={12} sx={{ mt: 2 }}>
-          <Button disabled={ disabled } variant="contained" type="submit" fullWidth sx={{ mt: 2 }}>
+          <Button
+            disabled={disabled}
+            variant="contained"
+            type="submit"
+            fullWidth
+            sx={{ mt: 2 }}
+          >
             Crear solicitud
           </Button>
           {error && (

@@ -6,6 +6,7 @@ export const authSlice = createSlice({
         estatus: 'no-autorizado', // 'no-autorizado', 'autorizado', 'checando'
         correo: null,
         tipo: null,
+        token: null,
         errorMessage:null
 
     },

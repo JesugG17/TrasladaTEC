@@ -1,7 +1,6 @@
 import { CheckCircle } from "@mui/icons-material";
 import {
   Box,
-  Divider,
   Drawer,
   Grid,
   List,
@@ -12,9 +11,9 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import React from "react";
 
-export const Sidebar = ({ drawerWidth }) => {
+export const Sidebar = ({ drawerWidth, traslados = [] }) => {
+
   return (
     <Box
       component="nav"
@@ -52,7 +51,29 @@ export const Sidebar = ({ drawerWidth }) => {
           </Typography>
         </Toolbar>
         <List>
-          {["Solicitud1", "Solicitud2", "Solicitud3"].map((text) => (
+          {traslados.map((traslado) => (
+            <ListItem key={traslado.folioTraslado} disablePadding>
+              <ListItemButton>
+                <ListItemIcon
+                  sx={{
+                    color: "success.main",
+                  }}
+                >
+                  <CheckCircle />
+                </ListItemIcon>
+                <Grid
+                  container
+                  sx={{
+                    color: "white",
+                  }}
+                >
+                  <ListItemText primary={traslado.instituto_Destino} />
+                  <ListItemText secondary={traslado.motivo} />
+                </Grid>
+              </ListItemButton>
+            </ListItem>
+          ))}
+          {/* {["Solicitud1", "Solicitud2", "Solicitud3"].map((text) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon
@@ -70,10 +91,11 @@ export const Sidebar = ({ drawerWidth }) => {
                 >
                   <ListItemText primary={text} />
                   <ListItemText secondary={"Some text"} />
+                  <ListItemText secondary={"Some text"} />
                 </Grid>
               </ListItemButton>
             </ListItem>
-          ))}
+          ))} */}
         </List>
       </Drawer>
     </Box>

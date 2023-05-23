@@ -3,10 +3,16 @@ import { createSlice } from '@reduxjs/toolkit';
 export const solicitudSlice = createSlice({
     name: 'solicitud',
     initialState: {
-        value: 10
+        traslados: []
     },
     reducers: {
+        setTraslados: (state, {payload} ) => {
+            return {
+                ...state,
+                ...payload
+            }
+        }
     }
 });
 
-export const { } = solicitudSlice.actions;
+export const { setTraslados } = solicitudSlice.actions;
