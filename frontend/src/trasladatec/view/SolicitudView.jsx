@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 
 export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
 
-  const { correo } = useSelector(state => state);
+  const { correo } = useSelector(state => state.auth);
   const [institutos, setInstitutos] = useState([]);
 
   const {
