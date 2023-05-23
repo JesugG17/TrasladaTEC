@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import { CheckingAuth } from "./components/CheckingAuth";
 
 export const AppRouter = () => {
-  const { estatus } = useSelector((state) => state.auth);
-
+  
+  const { estatus } = useSelector((state) => state);
   if (estatus === "checando") {
     return <CheckingAuth />;
   }

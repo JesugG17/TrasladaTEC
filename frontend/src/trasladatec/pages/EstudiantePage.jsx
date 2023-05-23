@@ -20,7 +20,8 @@ import { Sidebar } from "../components/Sidebar";
 import { getTraslados } from "../helpers/traslados";
 
 export const EstudiantePage = () => {
-  const { correo } = useSelector((state) => state.auth);
+
+  const { correo } = useSelector((state) => state);
   const [estudiante, setEstudiante] = useState();
   const [open, setOpen] = useState(false);
   const [traslados, setTraslados] = useState([]);

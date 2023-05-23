@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 
 export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
 
-  const { correo } = useSelector(state => state.auth);
+  const { correo } = useSelector(state => state);
   const [institutos, setInstitutos] = useState([]);
 
   const {
@@ -57,11 +57,12 @@ export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
       return;
     }
 
-    const { data } = await postTraslado({
+    const { data: nuevoTraslado } = await postTraslado({
       motivo,
       institutoDestino: instituto,
     });
-    setTraslados((traslados) => [...traslados, data]);
+
+    setTraslados((traslados) => [nuevoTraslado, ...traslados]);
     resetAll();
   };
   return (

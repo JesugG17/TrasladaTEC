@@ -7,7 +7,7 @@ Clonar el repositorio y reconstruir los modulos de node
 npm install
 ~~~
 
-Correr el servidor
+Correr la aplicacion
 ~~~
 npm run dev
 ~~~

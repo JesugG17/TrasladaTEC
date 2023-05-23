@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 export const TrasladaTECRoutes = () => {
 
-  const { estatus } = useSelector(state => state.auth);
+  const { estatus } = useSelector(state => state);
 
   if (estatus !== 'autorizado') {
     return <Navigate to='/login' />

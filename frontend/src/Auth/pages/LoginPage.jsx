@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const { estatus, errorMessage } = useSelector((state) => state.auth);
+  const { estatus, errorMessage } = useSelector((state) => state);
 
   const dispatch = useDispatch();
   const { handleChange, correo, contrasenia, formState } = useForm({
@@ -33,7 +33,7 @@ export const LoginPage = () => {
     try {
       const result = await logIn(formState);
       dispatch(startLogInWithEmailAndPassword(result));
-
+      
       navigate(`/${result.usuario.tipo}`, {
         replace: true
       });

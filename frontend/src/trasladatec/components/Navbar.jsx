@@ -18,6 +18,7 @@ export const Navbar = ({ drawerWidth, containsSidebar = true }) => {
   const handleLogout = () => {
 
     dispatch(logout());
+    localStorage.removeItem('state');
 
     navigate("/", {
       replace: true,

@@ -12,6 +12,12 @@ import {
   Typography,
 } from "@mui/material";
 
+const ESTATUS_PROCESOS = {
+  pending: 'PENDIENTE',
+  accepted: 'ACEPTADA',
+  denied: 'RECHAZADA'
+};
+
 export const Sidebar = ({ drawerWidth, traslados = [] }) => {
 
   return (
