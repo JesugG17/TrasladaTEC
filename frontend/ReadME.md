@@ -7,6 +7,11 @@ Clonar el repositorio y reconstruir los modulos de node
 npm install
 ~~~
 
+Correr el servidor
+~~~
+npm run dev
+~~~
+
 # Stack
 + ReactJS
 + MaterialUI
