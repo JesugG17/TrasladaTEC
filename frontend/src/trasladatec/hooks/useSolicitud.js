@@ -4,7 +4,7 @@ import { trasladoApi } from "../../api/traslado.api";
 
 export const useSolicitud = () => {
     
-    const { token } = useSelector(state => state);
+    const { token } = useSelector(state => state.auth);
     trasladoApi.defaults.headers.common['x-token'] = useMemo(() => token);
     const [instituto, setInputInstituto] = useState("");
     const [motivo, setMotivo] = useState("");

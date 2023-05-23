@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const { estatus, errorMessage } = useSelector((state) => state);
+  const { estatus, errorMessage } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   const { handleChange, correo, contrasenia, formState } = useForm({

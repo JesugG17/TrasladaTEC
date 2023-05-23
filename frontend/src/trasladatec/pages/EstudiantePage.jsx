@@ -21,7 +21,7 @@ import { getTraslados } from "../helpers/traslados";
 
 export const EstudiantePage = () => {
 
-  const { correo } = useSelector((state) => state);
+  const { correo } = useSelector((state) => state.auth);
   const [estudiante, setEstudiante] = useState();
   const [open, setOpen] = useState(false);
   const [traslados, setTraslados] = useState([]);
@@ -29,6 +29,9 @@ export const EstudiantePage = () => {
   useEffect(() => {
     cargarEstudiante();
     cargarTrasladosEstudiante();
+    return () => {
+      localStorage.removeItem('persist:root');
+    }
   }, []);
 
   const cargarTrasladosEstudiante = async () => {
