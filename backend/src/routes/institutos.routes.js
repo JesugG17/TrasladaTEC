@@ -3,7 +3,6 @@ const { Estudiante, Instituto } = require('../models');
 const { Op } = require('sequelize');
 const router = Router();
 
-
 router.get('/:correo', async(req = request, res = response) => {
     
     const { correo } = req.params;

@@ -2,12 +2,6 @@ const { request, response } = require("express");
 const { Estudiante, Traslado } = require("../models");
 const Instituto = require("../models/instituto.model");
 
-const ESTATUS_TRASLADOS = {
-    pendiente: 'PENDIENTE',
-    aprobado: 'APROBADO',
-    rechazado: 'RECHAZADO'
-}
-
 // ESTO ES SOLO UN EJEMPLO
 const obtenerTraslados = (req, res) => {
 
@@ -48,7 +42,7 @@ const crearTraslado = async(req = request, res = response) => {
 
 const trasladoPorEstudiante = async(req = request, res = response) => {
 
-    const { correo } = req.params
+    const correo = req.correo
 
     const estudiante = await Estudiante.findOne({
         where: {

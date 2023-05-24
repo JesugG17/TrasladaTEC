@@ -3,7 +3,6 @@ const { httpStatusCode } = require('httpstatuscode');
 const jwt = require('jsonwebtoken');
 const { Usuario } = require("../models");
 
-
 const validarJWT = async(req = request, res = response, next) => {
 
     const {'x-token': token} = req.headers;
@@ -19,7 +18,11 @@ const validarJWT = async(req = request, res = response, next) => {
         
         const { correo } = jwt.verify(token, process.env.MYSECRETKEY);
 
-        const usuario = await Usuario.findOne({ correo });
+        const usuario = await Usuario.findOne({
+            where: {
+                correo
+            }
+        });
 
         if (!usuario) {
             return res.status(httpStatusCode.BadRequest).json({

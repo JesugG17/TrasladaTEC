@@ -14,8 +14,9 @@ router.post('/crear', [
     checarErrores
 ], crearTraslado)
 
-router.get('/:correo', [
-
+router.get('/estudiante', [
+    validarJWT,
+    checarErrores
 ], trasladoPorEstudiante)
 
 module.exports = router;
