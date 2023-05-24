@@ -40,11 +40,7 @@ export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
     obtenerAdeudos();
     cargarInstitutos()
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem('institutos', JSON.stringify(institutos));
-  }, [institutos]);
-
+  
   const obtenerAdeudos = async() => {
     try {
       const { data } = await usuarioApi.get('/adeudo');
@@ -53,13 +49,13 @@ export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
       console.log(error);
     }
   }
-
+  
   const cargarInstitutos = async() => {
     try {
       if (institutos.length !== 0) return;
       const data = await getInstitutos(correo);
-      console.log('Hice la peticion!');
       const institutosDisponibles = data.map( instituto => instituto.instNombre);
+      localStorage.setItem('institutos', JSON.stringify(institutosDisponibles));
       setInstitutos(institutosDisponibles);
     } catch (error) {
       console.log(error);

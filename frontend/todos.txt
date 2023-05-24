@@ -1,0 +1,10 @@
+COSAS POR HACER: 
+
+-- FACILES --
+1.- MOSTRAR SOLOS LOS INSTITUTOS QUE TENGAN LA CARRERA DEL ALUMNO LOGUEADO
+2.- SI EL ALUMNO TIENE UNA SOLICITUD ACTIVA, NO DEBE DEJAR CREAR OTRA
+3.- Mostrar todas las solicitudes al coordinador de su respectiva carrera
+
+-- MAS LABORIOSAS --
+1.- Redirigir correctamente al jefe de division, control escolar o coordinador a su pagina correspondiente
+

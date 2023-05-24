@@ -6,6 +6,6 @@ export const getInstitutos = async( correo ) => {
         const { data } = await trasaladaTecApi.get(`/${correo}`);
         return data
     } catch (error) {
-
+        console.log(error);
     }
 }
