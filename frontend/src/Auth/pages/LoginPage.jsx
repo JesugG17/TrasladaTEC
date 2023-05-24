@@ -13,6 +13,7 @@ import { useMemo } from "react";
 import { startLogInWithEmailAndPassword } from "../../store/auth/thunks";
 import { logIn } from "../helpers/login";
 import { useNavigate } from "react-router-dom";
+import { trasladoApi, usuarioApi } from "../../api";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -32,10 +33,14 @@ export const LoginPage = () => {
 
     try {
       const result = await logIn(formState);
+      
       dispatch(startLogInWithEmailAndPassword(result));
       
+      trasladoApi.defaults.headers.common["x-token"] = result.usuario.token;
+      usuarioApi.defaults.headers.common["x-token"] = result.usuario.token;
+
       navigate(`/${result.usuario.tipo}`, {
-        replace: true
+        replace: true,
       });
     } catch (error) {
       console.log("Algo salio mal LOGINPAGE");

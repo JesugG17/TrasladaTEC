@@ -10,11 +10,11 @@ const persistConfig = {
     storage
 }
 
-const persistedReducer = persistReducer(persistConfig, authSlice.reducer);
+const persistedAuthReducer = persistReducer(persistConfig, authSlice.reducer);
 
 export const store = configureStore({
     reducer: {
-        auth: persistedReducer
+        auth: persistedAuthReducer
     },
     middleware: [thunk]
 });

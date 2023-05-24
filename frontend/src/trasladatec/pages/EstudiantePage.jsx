@@ -45,7 +45,7 @@ export const EstudiantePage = () => {
 
   const cargarEstudiante = async () => {
     try {
-      const { data } = await usuarioApi.get(`/estudiante/${correo}`);
+      const { data } = await usuarioApi.get(`/estudiante`);
       setEstudiante(data);
     } catch (error) {
       console.log("Algo salio mal");

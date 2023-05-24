@@ -12,12 +12,6 @@ import {
   Typography,
 } from "@mui/material";
 
-const ESTATUS_PROCESOS = {
-  pending: 'PENDIENTE',
-  accepted: 'ACEPTADA',
-  denied: 'RECHAZADA'
-};
-
 export const Sidebar = ({ drawerWidth, traslados = [] }) => {
 
   return (
@@ -79,29 +73,6 @@ export const Sidebar = ({ drawerWidth, traslados = [] }) => {
               </ListItemButton>
             </ListItem>
           ))}
-          {/* {["Solicitud1", "Solicitud2", "Solicitud3"].map((text) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon
-                  sx={{
-                    color: "success.main",
-                  }}
-                >
-                  <CheckCircle />
-                </ListItemIcon>
-                <Grid
-                  container
-                  sx={{
-                    color: "white",
-                  }}
-                >
-                  <ListItemText primary={text} />
-                  <ListItemText secondary={"Some text"} />
-                  <ListItemText secondary={"Some text"} />
-                </Grid>
-              </ListItemButton>
-            </ListItem>
-          ))} */}
         </List>
       </Drawer>
     </Box>

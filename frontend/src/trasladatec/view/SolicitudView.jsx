@@ -12,13 +12,13 @@ import { postTraslado } from "../helpers/traslados";
 import { useEffect, useState } from "react";
 import { getInstitutos } from "../helpers/institutos";
 import { useSelector } from "react-redux";
-
-// const institutos = ["Culiacan", "Hermosillo", "CDMX", "Mazatlan"];
+import { usuarioApi } from "../../api";
 
 export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
 
   const { correo } = useSelector(state => state.auth);
   const [institutos, setInstitutos] = useState([]);
+  const [adeudo, setAdeudo] = useState(false);
 
   const {
     motivo,
@@ -34,9 +34,19 @@ export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
   } = useSolicitud();
 
   useEffect(() => {
+    obtenerAdeudos();
     cargarInstitutos()
   }, []);
 
+
+  const obtenerAdeudos = async() => {
+    try {
+      const { data } = await usuarioApi.get('/adeudo');
+      setAdeudo(data.adeudo);
+    } catch (error) {
+
+    }
+  }
 
   const cargarInstitutos = async() => {
     try {
@@ -95,7 +105,7 @@ export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
             sx={{ width: 300 }}
             options={institutos}
             onChange={onChangeInstituto}
-            disabled={disabled}
+            disabled={disabled || adeudo}
             value={instituto}
             blurOnSelect
             renderInput={(params) => {
@@ -116,7 +126,7 @@ export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
             minRows={4}
             name="motivo"
             onChange={handleChange}
-            disabled={disabled}
+            disabled={disabled || adeudo}
             value={motivo}
             label="Motivo"
             variant="filled"
@@ -125,7 +135,7 @@ export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
         </Grid>
         <Grid item xs={12} sx={{ mt: 2 }}>
           <Button
-            disabled={disabled}
+            disabled={disabled || adeudo}
             variant="contained"
             type="submit"
             fullWidth
@@ -151,6 +161,16 @@ export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
               className="animate__animated animate__fadeIn"
             >
               Solicitud creada exitosamente
+            </Alert>
+          )}
+          {adeudo && (
+            <Alert
+              severity="error"
+              sx={{ mt: 2 }}
+              color="error"
+              className="animate__animated animate__fadeIn"
+            >
+              ERROR, TIENE ADEUDOS
             </Alert>
           )}
         </Grid>
