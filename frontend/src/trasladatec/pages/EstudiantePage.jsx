@@ -18,19 +18,21 @@ import { usuarioApi } from "../../api/usuario.api";
 import { CheckingAuth } from "../../router/components/CheckingAuth";
 import { Sidebar } from "../components/Sidebar";
 import { getTraslados } from "../helpers/traslados";
+import { inicializarInstancias } from "../helpers/instancias";
 
 export const EstudiantePage = () => {
 
-  const { correo } = useSelector((state) => state.auth);
+  const { correo, token } = useSelector((state) => state.auth);
   const [estudiante, setEstudiante] = useState();
   const [open, setOpen] = useState(false);
   const [traslados, setTraslados] = useState([]);
 
   useEffect(() => {
+    inicializarInstancias(token);
     cargarEstudiante();
     cargarTrasladosEstudiante();
     return () => {
-      localStorage.removeItem('persist:root');
+      localStorage.removeItem('institutos');
     }
   }, []);
 
@@ -45,9 +47,10 @@ export const EstudiantePage = () => {
 
   const cargarEstudiante = async () => {
     try {
-      const { data } = await usuarioApi.get(`/estudiante`);
+      const { data } = await usuarioApi.get('/estudiante');
       setEstudiante(data);
     } catch (error) {
+      console.log(error);
       console.log("Algo salio mal");
     }
   };
@@ -144,7 +147,7 @@ export const EstudiantePage = () => {
           </IconButton>
         </Tooltip>
 
-        {open && (
+        {/* {open && (
           <Modal open>
             <Grid container>
               <SolicitudView
@@ -153,7 +156,15 @@ export const EstudiantePage = () => {
               />
             </Grid>
           </Modal>
-        )}
+        )} */}
+        <Modal open={open}>
+          <Grid container>
+            <SolicitudView
+              setTraslados={setTraslados}
+              handleOpenApplication={handleOpenApplication}
+            />
+          </Grid>
+        </Modal>
       </Grid>
     </TrasladaTECLayout>
   );

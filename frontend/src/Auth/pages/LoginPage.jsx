@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import {
   Alert,
   Button,
@@ -9,11 +10,10 @@ import {
 import { EmailOutlined, PasswordOutlined } from "@mui/icons-material";
 import { useForm } from "../../hooks/useForm";
 import { useDispatch, useSelector } from "react-redux";
-import { useMemo } from "react";
 import { startLogInWithEmailAndPassword } from "../../store/auth/thunks";
-import { logIn } from "../helpers/login";
 import { useNavigate } from "react-router-dom";
-import { trasladoApi, usuarioApi } from "../../api";
+import { logIn } from "../helpers/login";
+import { inicializarInstancias } from "../../trasladatec/helpers/instancias";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -36,8 +36,7 @@ export const LoginPage = () => {
       
       dispatch(startLogInWithEmailAndPassword(result));
       
-      trasladoApi.defaults.headers.common["x-token"] = result.usuario.token;
-      usuarioApi.defaults.headers.common["x-token"] = result.usuario.token;
+      inicializarInstancias(result.usuario.token);
 
       navigate(`/${result.usuario.tipo}`, {
         replace: true,

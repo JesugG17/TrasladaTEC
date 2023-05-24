@@ -17,8 +17,11 @@ import { usuarioApi } from "../../api";
 export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
 
   const { correo } = useSelector(state => state.auth);
-  const [institutos, setInstitutos] = useState([]);
-  const [adeudo, setAdeudo] = useState(false);
+  const [institutos, setInstitutos] = useState(() => {
+    const institutosGuardados = JSON.parse(localStorage.getItem('institutos'));
+    return institutosGuardados ?? [];
+  });
+  const [adeudo, setAdeudo] = useState();
 
   const {
     motivo,
@@ -38,19 +41,24 @@ export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
     cargarInstitutos()
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem('institutos', JSON.stringify(institutos));
+  }, [institutos]);
 
   const obtenerAdeudos = async() => {
     try {
       const { data } = await usuarioApi.get('/adeudo');
       setAdeudo(data.adeudo);
     } catch (error) {
-
+      console.log(error);
     }
   }
 
   const cargarInstitutos = async() => {
     try {
+      if (institutos.length !== 0) return;
       const data = await getInstitutos(correo);
+      console.log('Hice la peticion!');
       const institutosDisponibles = data.map( instituto => instituto.instNombre);
       setInstitutos(institutosDisponibles);
     } catch (error) {

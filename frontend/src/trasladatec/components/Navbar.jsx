@@ -18,7 +18,7 @@ export const Navbar = ({ drawerWidth, containsSidebar = true }) => {
   const handleLogout = () => {
 
     dispatch(logout());
-    localStorage.removeItem('state');
+    localStorage.removeItem('institutos');
 
     navigate("/", {
       replace: true,

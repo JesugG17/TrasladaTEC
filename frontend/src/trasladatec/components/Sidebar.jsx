@@ -1,4 +1,4 @@
-import { CheckCircle } from "@mui/icons-material";
+import { CheckCircle, DeleteForeverOutlined } from "@mui/icons-material";
 import {
   Box,
   Drawer,
@@ -9,11 +9,11 @@ import {
   ListItemIcon,
   ListItemText,
   Toolbar,
+  Tooltip,
   Typography,
 } from "@mui/material";
 
 export const Sidebar = ({ drawerWidth, traslados = [] }) => {
-
   return (
     <Box
       component="nav"
@@ -51,6 +51,11 @@ export const Sidebar = ({ drawerWidth, traslados = [] }) => {
           </Typography>
         </Toolbar>
         <List>
+          {traslados.length === 0 && (
+            <Typography color="white" variant="h6" textAlign="center">
+              No hay solicitudes hechas
+            </Typography>
+          )}
           {traslados.map((traslado) => (
             <ListItem key={traslado.folioTraslado} disablePadding>
               <ListItemButton>
