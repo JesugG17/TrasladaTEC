@@ -2,6 +2,7 @@ const { Router } = require('express');
 const { obtenerTraslados, crearTraslado, trasladoPorEstudiante } = require('../controllers/traslados.controller');
 const { validarJWT } = require('../middlewares/validarJWT');
 const { checarErrores } = require('../middlewares/checarErrores');
+const { check } = require('express-validator');
 
 const router = Router();
 
@@ -11,6 +12,7 @@ router.get('/',[
 
 router.post('/crear', [
     validarJWT,
+    check().custom(),
     checarErrores
 ], crearTraslado)
 

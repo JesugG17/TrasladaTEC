@@ -3,7 +3,7 @@ const { check } = require('express-validator');
 
 const { logIn } = require('../controllers/auth.controller');
 const { checarErrores } = require('../middlewares/checarErrores');
-const { existeCorreo } = require('../helpers/auth.validadores');
+const { existeCorreo } = require('../helpers/validadores');
 
 const router = Router();
 
