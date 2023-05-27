@@ -1,16 +1,21 @@
 const { request, response } = require("express");
-const { Estudiante, Traslado } = require("../models");
+const { Estudiante, Traslado, Movimiento } = require("../models");
 const Instituto = require("../models/instituto.model");
+const { sequelize } = require("../db/config");
+
+const ESTATUS = {
+    capturada: 1,
+    aceptad: 2,
+    rechazada: 3,
+    expEntregado: 4,
+    cancelada: 5
+};
 
 // ESTO ES SOLO UN EJEMPLO
-const obtenerTraslados = (req, res) => {
+const obtenerTraslados = async(req, res) => {
 
-    const { nombre, edad } = req.body;
-
-    res.json({
-        nombre,
-        edad
-    });
+    const [ traslados, cantidad ] = await sequelize.query('SELECT * FROM Traslados');
+    res.json({traslados, cantidad});
 }
 
 const crearTraslado = async(req = request, res = response) => {
@@ -36,6 +41,13 @@ const crearTraslado = async(req = request, res = response) => {
     }
 
     const traslado = await Traslado.create(nuevoTraslado);
+    
+    await Movimiento.create({
+        fecha: nuevoTraslado.fechaTraslado,
+        estatus: ESTATUS.capturada,
+        usuario: req.correo,
+        traslado: traslado.folioTraslado
+    })
 
     res.json(traslado);
 }

@@ -12,7 +12,7 @@ router.get('/',[
 
 router.post('/crear', [
     validarJWT,
-    check().custom(),
+    // check().custom(),
     checarErrores
 ], crearTraslado)
 
