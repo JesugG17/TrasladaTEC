@@ -7,8 +7,8 @@ export const startLogInWithEmailAndPassword = (result) => {
         if (!result.ok) {
             return dispatch(logout(result));
         }
-        const { correo, tipo, token } = result.usuario;
+        const { correo, url, token } = result.usuario;
 
-        dispatch(login({ correo, tipo, token }));
+        dispatch(login({ correo, url, token }));
     }
 }

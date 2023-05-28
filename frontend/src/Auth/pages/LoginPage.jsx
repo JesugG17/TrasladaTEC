@@ -27,18 +27,20 @@ export const LoginPage = () => {
 
   const isChecking = useMemo(() => estatus === "checando", [estatus]);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
     if (correo.length === 0 || contrasenia.length === 0) return;
 
     try {
       const result = await logIn(formState);
+      console.log(result);
       
       dispatch(startLogInWithEmailAndPassword(result));
       
       inicializarInstancias(result.usuario.token);
 
-      navigate(`/${result.usuario.tipo}`, {
+      console.log(result.usuario.url);
+      navigate(`/${result.usuario.url}`, {
         replace: true,
       });
     } catch (error) {

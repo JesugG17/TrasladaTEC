@@ -5,7 +5,6 @@ export const authSlice = createSlice({
     initialState: {
         estatus: 'no-autorizado', // 'no-autorizado', 'autorizado', 'checando'
         correo: null,
-        tipo: null,
         token: null,
         errorMessage:null
 
@@ -16,6 +15,7 @@ export const authSlice = createSlice({
                 ...state,
                 ...payload,
                 estatus: 'autorizado',
+                // tipo: payload.url,
                 errorMessage: null
             }
         },

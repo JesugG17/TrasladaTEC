@@ -6,5 +6,5 @@ COSAS POR HACER:
 3.- Mostrar todas las solicitudes al coordinador de su respectiva carrera
 
 -- MAS LABORIOSAS --
-1.- Redirigir correctamente al jefe de division, control escolar o coordinador a su pagina correspondiente
+1.- Redirigir correctamente al jefe de division, control escolar o coordinador a su pagina correspondiente -- DONE
 
