@@ -1,8 +1,9 @@
 const { request, response } = require("express");
-const { Estudiante, Traslado, Movimiento } = require("../models");
+const { Estudiante, Traslado, Movimiento, Empleado } = require("../models");
 const { sequelize } = require("../db/config");
 const Instituto = require("../models/instituto.model");
 const { ESTATUS } = require("../enum/Estatus.enum");
+
 
 // ESTO ES SOLO UN EJEMPLO
 const obtenerTraslados = async(req, res) => {
@@ -65,9 +66,31 @@ const trasladoPorEstudiante = async(req = request, res = response) => {
 
 }
 
+const trasladoPorCoordinador = async(req = request, res = response) => {
+    
+    const correo = req.correo;
+
+    const { carrera } = await Empleado.findOne({
+        where: {
+            correo
+        }
+    });
+
+    const [traslados] = await sequelize.query(
+        `SELECT t.*
+        FROM Traslados t
+        INNER JOIN Estudiantes e on t.Estudiante = e.numControl
+        WHERE e.carrera = '${ carrera }'`
+    )
+
+    res.json(traslados);
+
+}
+
 
 module.exports = {
     obtenerTraslados,
     crearTraslado,
-    trasladoPorEstudiante
+    trasladoPorEstudiante,
+    trasladoPorCoordinador
 }

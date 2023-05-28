@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { obtenerTraslados, crearTraslado, trasladoPorEstudiante } = require('../controllers/traslados.controller');
+const { obtenerTraslados, crearTraslado, trasladoPorEstudiante, trasladoPorCoordinador } = require('../controllers/traslados.controller');
 const { validarJWT } = require('../middlewares/validarJWT');
 const { checarErrores } = require('../middlewares/checarErrores');
 const { tieneTrasladoActivo } = require('../middlewares/ChecarTraslados');
@@ -14,12 +14,17 @@ router.post('/crear', [
     validarJWT,
     tieneTrasladoActivo,
     checarErrores
-], crearTraslado)
+], crearTraslado);
 
 router.get('/estudiante', [
     validarJWT,
     checarErrores
-], trasladoPorEstudiante)
+], trasladoPorEstudiante);
+
+router.get('/coordinador', [
+    validarJWT,
+    checarErrores
+], trasladoPorCoordinador);
 
 module.exports = router;
 
