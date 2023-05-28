@@ -1,7 +1,13 @@
 const { response, request } = require('express')
 const { httpStatusCode } = require('httpstatuscode');
 const { generarJWT } = require('../helpers/generarJWT');
-const { Usuario, Empleado } = require('../models');
+const { Usuario, Empleado, Role } = require('../models');
+
+const ROLES_URL = {
+    "Jefe de Division de estudios": "jefe",
+    "Coordinador": "coordinador",
+    "Administrativo": "control-escolar"
+}
 
 const logIn = async(req = request, res = response) => {
 
@@ -9,14 +15,13 @@ const logIn = async(req = request, res = response) => {
 
     try {
         
-        let tipo = 'estudiante';
+        let url = 'estudiante';
         const usuario = await Usuario.findOne({
             where: {
                 correo
             }
         });  
 
-        // TODO: cambiar esto por bcrypt 
         if (usuario.contrasenia !== contrasenia) {
             return res.status(httpStatusCode.BadRequest).json({
                 ok: false,
@@ -31,7 +36,8 @@ const logIn = async(req = request, res = response) => {
         });
 
         if (empleado) {
-            tipo = 'empleado'
+            const { nomRol } = await Role.findByPk(empleado.rol);
+            url = ROLES_URL[nomRol];
         }
 
         const token = await generarJWT(correo);
@@ -39,7 +45,7 @@ const logIn = async(req = request, res = response) => {
         res.json({
             ok: true,
             correo,
-            tipo,
+            url,
             token
         });
     } catch (error) {
