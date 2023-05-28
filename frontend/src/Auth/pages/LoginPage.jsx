@@ -73,6 +73,7 @@ export const LoginPage = () => {
           <Grid container spacing={1}>
             <Grid item xs={12} sx={{ mt: 1 }}>
               <TextField
+                color="primary"
                 label="correo"
                 type="email"
                 disabled={isChecking}
@@ -91,6 +92,7 @@ export const LoginPage = () => {
             </Grid>
             <Grid item xs={12} sx={{ mt: 2 }}>
               <TextField
+                color="primary"
                 label="contraseña"
                 type="password"
                 disabled={isChecking}

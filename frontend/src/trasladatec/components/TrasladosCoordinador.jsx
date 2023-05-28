@@ -1,7 +1,23 @@
 import { Button } from "@mui/material";
 import { TrasladoCardLayout } from "../layout/TrasladoCardLayout";
+import { trasladoApi } from "../../api";
 
-export const TrasladosCoordinador = ({ traslado }) => {
+export const TrasladosCoordinador = ({ traslado, setTraslados }) => {
+
+  const aceptarTraslado = async() => {
+    try {
+      await trasladoApi.put(`/aceptar/${traslado.FolioTraslado}`);
+
+      setTraslados((prevTraslados) => {
+        const nuevosTraslados = prevTraslados.filter( tras => tras.FolioTraslado !== traslado.FolioTraslado );
+        return nuevosTraslados;
+      })
+
+    } catch(error) {
+      console.log(error);
+    }
+  }
+
   return (
     <TrasladoCardLayout traslado={ traslado }>
       <Button
@@ -13,7 +29,7 @@ export const TrasladosCoordinador = ({ traslado }) => {
       >
         Rechazar
       </Button>
-      <Button variant="outlined" color="success">
+      <Button onClick={aceptarTraslado} variant="outlined" color="success">
         Aceptar
       </Button>
     </TrasladoCardLayout>

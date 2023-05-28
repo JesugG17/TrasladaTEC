@@ -1,6 +1,7 @@
 import {
   Grid,
   List,
+  TabScrollButton,
   TextField,
   Typography,
 } from "@mui/material";
@@ -37,53 +38,63 @@ export const CoordinadorPage = () => {
 
   return (
     <TrasladaTECLayout containsSidebar={false}>
-      <Grid
-        container
-        direction="row"
-        alignItems="center"
-        justifyContent="center"
-        sx={{
-          height: "100vh",
-        }}
-      >
+
         <Grid
           container
-          className="box-shadow"
-          direction="column"
+          direction="row"
+          alignItems="center"
+          justifyContent="center"
           sx={{
-            backgroundColor: "secondary.main",
-            width: "80%",
-            height: "70%",
-            borderRadius: 4,
-            padding: 2,
+            height: "100vh",
           }}
         >
-          <Grid item>
-            <Typography
-              align="center"
-              variant="h4"
+            <Grid
+              container
+              className="box-shadow"
+              wrap="nowrap"
+              direction="column"
               sx={{
-                borderBottom: "2px solid black",
+                backgroundColor: "secondary.main",
+                width: "80%",
+                height: "70%",
+                borderRadius: 4,
                 padding: 2,
-                mb: 3,
               }}
             >
-              Traslados
-            </Typography>
-          </Grid>
+              <Grid item>
+                <Typography
+                  align="center"
+                  variant="h4"
+                  sx={{
+                    borderBottom: "2px solid black",
+                    padding: 2,
+                    mb: 3,
+                  }}
+                >
+                  Traslados
+                </Typography>
+              </Grid>
 
-          <List sx={{ width: "100%" }}>
-            {
-              traslados.map( traslado => (
-                <TrasladosCoordinador
-                  key={ traslado.FolioTraslado} 
-                  traslado={ traslado }
-                />
-              ))
-            }
-          </List>
+              <div className="scroll">
+                <List sx={{ width: "100%" }}>
+                    {
+                      traslados.map( traslado => (
+                        <TrasladosCoordinador
+                          key={ traslado.FolioTraslado} 
+                          traslado={ traslado }
+                          setTraslados={ setTraslados }
+                        />
+                      ))
+                    }
+                    {
+                      (traslados.length === 0) &&
+                      <Typography textAlign="center" variant="h5">No hay traslados por mostrar</Typography>
+                    }
+
+                </List>
+              </div>
+            </Grid>
         </Grid>
-      </Grid>
     </TrasladaTECLayout>
   );
 };

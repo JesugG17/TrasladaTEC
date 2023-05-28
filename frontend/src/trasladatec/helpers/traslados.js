@@ -21,3 +21,11 @@ export const postTraslado = async ({ motivo, institutoDestino }) => {
         console.log(error);
     }
 }
+
+export const aceptarTraslado = async() => {
+    try {
+        await trasladoApi.put('/aceptar')
+    } catch (error) {
+        console.log();
+    }
+} 
