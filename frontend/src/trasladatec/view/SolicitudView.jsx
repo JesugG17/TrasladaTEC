@@ -5,6 +5,7 @@ import {
   Grid,
   IconButton,
   TextField,
+  Typography
 } from "@mui/material";
 import { CloseOutlined } from "@mui/icons-material";
 import { useSolicitud } from "../hooks/useSolicitud";
@@ -17,6 +18,7 @@ import { usuarioApi } from "../../api";
 export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
 
   const { correo } = useSelector(state => state.auth);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [institutos, setInstitutos] = useState(() => {
     const institutosGuardados = JSON.parse(localStorage.getItem('institutos'));
     return institutosGuardados ?? [];
@@ -71,12 +73,17 @@ export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
       return;
     }
 
-    const { data: nuevoTraslado } = await postTraslado({
+    const { data } = await postTraslado({
       motivo,
       institutoDestino: instituto,
     });
 
-    setTraslados((traslados) => [nuevoTraslado, ...traslados]);
+    if (!data.ok) {
+      setErrorMessage(data.error)
+      return;
+    }
+    setErrorMessage(null);
+    setTraslados((traslados) => [data.traslado, ...traslados]);
     resetAll();
   };
   return (
@@ -97,12 +104,20 @@ export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
         borderRadius: 3,
       }}
     >
+
+      <Typography
+        sx={{
+          font: 5,
+        }}
+      >
+      </Typography>
+
       <Grid container direction="row" justifyContent="flex-end">
         <IconButton sx={{ mr: 5 }} onClick={handleOpenApplication}>
           <CloseOutlined sx={{ fontSize: 30 }} color="error" />
         </IconButton>
       </Grid>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}> 
         <Grid item xs={12}>
           <Autocomplete
             id="institutos-select"
@@ -177,6 +192,18 @@ export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
               ERROR, TIENE ADEUDOS
             </Alert>
           )}
+          {
+            errorMessage &&
+            <Alert
+              severity="error"
+              sx={{ mt: 2 }}
+              color="error"
+              className="animate__animated animate__fadeIn"
+            >
+              { errorMessage }
+            </Alert>
+          }
+
         </Grid>
       </form>
     </Grid>

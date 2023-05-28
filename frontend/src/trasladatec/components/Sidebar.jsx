@@ -1,4 +1,4 @@
-import { CheckCircle, DeleteForeverOutlined } from "@mui/icons-material";
+import { CheckCircle } from "@mui/icons-material";
 import {
   Box,
   Drawer,
@@ -9,7 +9,6 @@ import {
   ListItemIcon,
   ListItemText,
   Toolbar,
-  Tooltip,
   Typography,
 } from "@mui/material";
 
