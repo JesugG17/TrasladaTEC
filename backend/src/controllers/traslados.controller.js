@@ -31,6 +31,7 @@ const crearTraslado = async(req = request, res = response) => {
         motivo,
         instituto_Origen: institutoEstudiante.instNombre,
         instituto_Destino: institutoDestino,
+        estatus: ESTATUS.capturada,
         estudiante: estudiante.numControl
     }
 
@@ -80,8 +81,7 @@ const trasladoPorCoordinador = async(req = request, res = response) => {
         `SELECT t.*
         FROM Traslados t
         INNER JOIN Estudiantes e on t.Estudiante = e.numControl
-        INNER JOIN Movimientos m on t.FolioTraslado = m.Traslado
-        WHERE e.carrera = '${ carrera }' AND m.Estatus <> 2`
+        WHERE e.carrera = '${ carrera }' AND t.Estatus not in('${ESTATUS.aceptada}', '${ESTATUS.rechazada}')`
     )
 
     res.json(traslados);
@@ -92,6 +92,10 @@ const aceptarTraslado = async(req = request, res = response) => {
 
     const { id } = req.params;
     const correo = req.correo;
+
+    const traslado = await Traslado.findByPk(id);
+
+    traslado.update({ estatus: ESTATUS.aceptada });
 
     await Movimiento.create({
         fecha: new Date().getTime(),
@@ -108,6 +112,10 @@ const aceptarTraslado = async(req = request, res = response) => {
 const rechazarTraslado = async(req = request, res = response) => {
     const { id } = req.params;
     const correo = req.correo;
+
+    const traslado = await Traslado.findByPk(id);
+
+    traslado.update({ estatus: ESTATUS.rechazada });
 
     await Movimiento.create({
         fecha: new Date().getTime(),

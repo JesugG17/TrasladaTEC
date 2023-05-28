@@ -1,6 +1,5 @@
 const { Router, request, response } = require('express');
-const { Estudiante, Instituto } = require('../models');
-const { Op } = require('sequelize');
+const { Estudiante } = require('../models');
 const { sequelize } = require('../db/config');
 const router = Router();
 

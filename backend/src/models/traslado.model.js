@@ -9,6 +9,7 @@ const Traslado = sequelize.define('Traslado', {
     },
     fechaTraslado: DataTypes.DATEONLY,
     motivo: DataTypes.STRING,
+    estatus: DataTypes.STRING,
     instituto_Origen: DataTypes.STRING,
     instituto_Destino: DataTypes.STRING,
     estudiante: {

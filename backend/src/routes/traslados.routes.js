@@ -36,7 +36,7 @@ router.put('/aceptar/:id', [
     checarErrores
 ], aceptarTraslado);
 
-router.put('/rechazar', [
+router.put('/rechazar/:id', [
     validarJWT,
     checarErrores
 ], rechazarTraslado);
