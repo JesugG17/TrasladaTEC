@@ -7,6 +7,8 @@ import { TrasladaTECLayout } from "../layout/TrasladaTECLayout";
 import { TrasladosCoordinador } from "../components/TrasladosCoordinador";
 
 export const CoordinadorPage = () => {
+
+
   return (
     <TrasladaTECLayout containsSidebar={false}>
       <Grid

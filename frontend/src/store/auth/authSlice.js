@@ -24,7 +24,6 @@ export const authSlice = createSlice({
                 ...state,
                 ...payload,
                 correo: null,
-                tipo: null,
                 token: null,
                 estatus: 'no-autorizado'
             }
