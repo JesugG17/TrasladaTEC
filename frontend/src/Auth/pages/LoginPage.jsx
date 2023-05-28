@@ -33,13 +33,11 @@ export const LoginPage = () => {
 
     try {
       const result = await logIn(formState);
-      console.log(result);
       
       dispatch(startLogInWithEmailAndPassword(result));
       
       inicializarInstancias(result.usuario.token);
 
-      console.log(result.usuario.url);
       navigate(`/${result.usuario.url}`, {
         replace: true,
       });

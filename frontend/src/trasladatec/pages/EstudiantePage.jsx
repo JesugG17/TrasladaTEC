@@ -22,7 +22,7 @@ import { inicializarInstancias } from "../helpers/instancias";
 
 export const EstudiantePage = () => {
 
-  const { correo, token } = useSelector((state) => state.auth);
+  const { url, token } = useSelector((state) => state.auth);
   const [estudiante, setEstudiante] = useState();
   const [open, setOpen] = useState(false);
   const [traslados, setTraslados] = useState([]);
@@ -38,7 +38,7 @@ export const EstudiantePage = () => {
 
   const cargarTrasladosEstudiante = async () => {
     try {
-      const data = await getTraslados(correo);
+      const data = await getTraslados(url);
       setTraslados(data);
     } catch (error) {
       console.log("Fallo al pedir los traslados");

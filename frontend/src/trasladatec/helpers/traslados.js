@@ -1,8 +1,8 @@
 import { trasladoApi } from "../../api/traslado.api"
 
-export const getTraslados = async () => {
+export const getTraslados = async ( url = '') => {
     try {
-        const { data } = await trasladoApi.get('/estudiante');
+        const { data } = await trasladoApi.get(`/${ url }`);
         return data;
     } catch (error) {
         console.log(error);

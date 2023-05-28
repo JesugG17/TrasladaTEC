@@ -1,13 +1,39 @@
 import {
   Grid,
   List,
+  TextField,
   Typography,
 } from "@mui/material";
 import { TrasladaTECLayout } from "../layout/TrasladaTECLayout";
 import { TrasladosCoordinador } from "../components/TrasladosCoordinador";
+import { useEffect, useState } from "react";
+import { getTraslados } from "../helpers/traslados";
+import { useSelector } from "react-redux";
+import { CheckingAuth } from "../../router/components/CheckingAuth";
+import { inicializarInstancias } from "../helpers/instancias";
 
 export const CoordinadorPage = () => {
+  
+  const { url, token } = useSelector(state => state.auth);
+  const [traslados, setTraslados] = useState(null);
 
+  useEffect(() => {
+    inicializarInstancias(token);
+    cargarTraslados();
+  }, []);
+
+  const cargarTraslados = async() => {
+    try {
+      const data = await getTraslados(url);
+      setTraslados(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  if (!traslados) {
+    return <CheckingAuth />
+  }
 
   return (
     <TrasladaTECLayout containsSidebar={false}>
@@ -47,7 +73,14 @@ export const CoordinadorPage = () => {
           </Grid>
 
           <List sx={{ width: "100%" }}>
-            <TrasladosCoordinador />
+            {
+              traslados.map( traslado => (
+                <TrasladosCoordinador
+                  key={ traslado.FolioTraslado} 
+                  traslado={ traslado }
+                />
+              ))
+            }
           </List>
         </Grid>
       </Grid>

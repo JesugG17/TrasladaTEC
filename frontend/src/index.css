@@ -8,3 +8,13 @@
 .box-shadow {
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.7);
 }
+
+
+.claseDelDiv {
+  margin: 0 auto;
+}
+
+.contenedorDelDiv {
+  display: flex;
+  justify-content: center;
+}

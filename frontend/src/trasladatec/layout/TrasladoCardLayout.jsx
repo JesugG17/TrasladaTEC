@@ -1,6 +1,6 @@
 import { Button, Grid, ListItem, ListItemText } from "@mui/material";
 
-export const TrasladoCardLayout = ({ children }) => {
+export const TrasladoCardLayout = ({ children, traslado = [] }) => {
   return (
     <ListItem
       className="box-shadow"
@@ -21,10 +21,10 @@ export const TrasladoCardLayout = ({ children }) => {
         }}
       >
         <Grid item>
-          <ListItemText>Folio: 1234</ListItemText>
-          <ListItemText>Fecha: 10/05/2023</ListItemText>
+          <ListItemText>Folio: {traslado.FolioTraslado}</ListItemText>
+          <ListItemText>Fecha: {traslado.FechaTraslado}</ListItemText>
           <ListItemText>
-            Instituto destino: Tecnologico de Navolato
+            Instituto destino: {traslado.Instituto_Destino}
           </ListItemText>
           <ListItemText>Estado: Pendiente </ListItemText>
         </Grid>

@@ -1,9 +1,9 @@
 import { Button } from "@mui/material";
 import { TrasladoCardLayout } from "../layout/TrasladoCardLayout";
 
-export const TrasladosCoordinador = () => {
+export const TrasladosCoordinador = ({ traslado }) => {
   return (
-    <TrasladoCardLayout>
+    <TrasladoCardLayout traslado={ traslado }>
       <Button
         variant="outlined"
         color="error"
