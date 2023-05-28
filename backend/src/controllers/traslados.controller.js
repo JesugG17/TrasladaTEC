@@ -80,17 +80,52 @@ const trasladoPorCoordinador = async(req = request, res = response) => {
         `SELECT t.*
         FROM Traslados t
         INNER JOIN Estudiantes e on t.Estudiante = e.numControl
-        WHERE e.carrera = '${ carrera }'`
+        INNER JOIN Movimientos m on t.FolioTraslado = m.Traslado
+        WHERE e.carrera = '${ carrera }' AND m.Estatus <> 2`
     )
 
     res.json(traslados);
-
 }
 
+
+const aceptarTraslado = async(req = request, res = response) => {
+
+    const { id } = req.params;
+    const correo = req.correo;
+
+    await Movimiento.create({
+        fecha: new Date().getTime(),
+        estatus: ESTATUS.aceptada,
+        usuario: correo,
+        traslado: id
+    });
+    
+    res.json({
+        ok: true
+    })
+}
+
+const rechazarTraslado = async(req = request, res = response) => {
+    const { id } = req.params;
+    const correo = req.correo;
+
+    await Movimiento.create({
+        fecha: new Date().getTime(),
+        estatus: ESTATUS.rechazada,
+        usuario: correo,
+        traslado: id
+    });
+
+    res.json({
+        ok: true
+    })
+}
 
 module.exports = {
     obtenerTraslados,
     crearTraslado,
     trasladoPorEstudiante,
-    trasladoPorCoordinador
+    trasladoPorCoordinador,
+    aceptarTraslado,
+    rechazarTraslado
 }

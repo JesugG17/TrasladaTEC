@@ -1,13 +1,18 @@
 const { Router } = require('express');
-const { obtenerTraslados, crearTraslado, trasladoPorEstudiante, trasladoPorCoordinador } = require('../controllers/traslados.controller');
+const { obtenerTraslados, 
+        crearTraslado, 
+        trasladoPorEstudiante, 
+        trasladoPorCoordinador, 
+        aceptarTraslado, 
+        rechazarTraslado } = require('../controllers/traslados.controller'); 
 const { validarJWT } = require('../middlewares/validarJWT');
 const { checarErrores } = require('../middlewares/checarErrores');
 const { tieneTrasladoActivo } = require('../middlewares/ChecarTraslados');
 
 const router = Router();
 
-router.get('/',[
-    
+router.get('/', [
+
 ], obtenerTraslados);
 
 router.post('/crear', [
@@ -25,6 +30,16 @@ router.get('/coordinador', [
     validarJWT,
     checarErrores
 ], trasladoPorCoordinador);
+
+router.put('/aceptar/:id', [
+    validarJWT,
+    checarErrores
+], aceptarTraslado);
+
+router.put('/rechazar', [
+    validarJWT,
+    checarErrores
+], rechazarTraslado);
 
 module.exports = router;
 

@@ -1,6 +1,6 @@
 const ESTATUS = {
     capturada: 1,
-    aceptad: 2,
+    aceptada: 2,
     rechazada: 3,
     expEntregado: 4,
     cancelada: 5

@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { obtenerEstudiante, checarAdeudoEstudiante } = require('../controllers/usuarios.controller');
+const { obtenerEstudiante, checarAdeudoEstudiante } = require('../controllers/estudiante.controller');
 const { checarErrores } = require('../middlewares/checarErrores');
 const { validarJWT } = require('../middlewares/validarJWT');
 

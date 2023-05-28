@@ -4,7 +4,7 @@ const generarJWT = ( correo ) => {
     return new Promise((resolve, reject) => {
         
         jwt.sign({ correo }, process.env.MYSECRETKEY, {
-            expiresIn: '1h'
+            expiresIn: '4h'
         }, (err, token) => {
 
             if (err) {
