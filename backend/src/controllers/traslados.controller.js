@@ -1,15 +1,8 @@
 const { request, response } = require("express");
 const { Estudiante, Traslado, Movimiento } = require("../models");
-const Instituto = require("../models/instituto.model");
 const { sequelize } = require("../db/config");
-
-const ESTATUS = {
-    capturada: 1,
-    aceptad: 2,
-    rechazada: 3,
-    expEntregado: 4,
-    cancelada: 5
-};
+const Instituto = require("../models/instituto.model");
+const { ESTATUS } = require("../enum/Estatus.enum");
 
 // ESTO ES SOLO UN EJEMPLO
 const obtenerTraslados = async(req, res) => {
@@ -41,7 +34,7 @@ const crearTraslado = async(req = request, res = response) => {
     }
 
     const traslado = await Traslado.create(nuevoTraslado);
-    
+
     await Movimiento.create({
         fecha: nuevoTraslado.fechaTraslado,
         estatus: ESTATUS.capturada,
@@ -49,7 +42,7 @@ const crearTraslado = async(req = request, res = response) => {
         traslado: traslado.folioTraslado
     })
 
-    res.json(traslado);
+    res.json({traslado, ok: true});
 }
 
 const trasladoPorEstudiante = async(req = request, res = response) => {

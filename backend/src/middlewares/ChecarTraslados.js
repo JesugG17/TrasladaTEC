@@ -1,26 +1,24 @@
 const { request, response } = require("express");
 const { Traslado, Estudiante } = require("../models");
+const { sequelize } = require("../db/config");
 
 
 const tieneTrasladoActivo = async(req = request, res = response, next) => {
     const correo = req.correo;
 
-    const { numControl } = await Estudiante.findOne({
-        where: {
-            correo
-        }
-    });
+    const [ , count ] = await sequelize.query(
+        `SELECT *
+        FROM Estudiantes e
+        INNER JOIN Traslados t on e.numControl = t.Estudiante
+        INNER JOIN Movimientos m on t.FolioTraslado = m.Traslado
+        WHERE e.correo = '${ correo }' AND m.Estatus = 1`
+    )
 
-    const { count } = await Traslado.findAndCountAll({
-        where: {
-            estudiante: numControl
-        }
-    });
-
-    if (count === 1) {
-        res.json({
+    console.log({ count });
+    if (count > 0) {
+        return res.json({
             ok: false,
-            error: 'Este estudiante ya tiene un traslado en curso'
+            error: 'Tienes un traslado en curso!'
         })
     }
 
