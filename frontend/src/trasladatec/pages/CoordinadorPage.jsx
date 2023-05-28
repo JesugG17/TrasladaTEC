@@ -16,15 +16,23 @@ import { inicializarInstancias } from "../helpers/instancias";
 export const CoordinadorPage = () => {
   
   const { url, token } = useSelector(state => state.auth);
-  const [traslados, setTraslados] = useState(null);
+  const [traslados, setTraslados] = useState(() => {
+    const traslados = JSON.parse(localStorage.getItem('trasladosCordi'));
+    return traslados ?? null;
+  });
 
   useEffect(() => {
     inicializarInstancias(token);
     cargarTraslados();
+    return () => {
+      localStorage.setItem('trasladosCordi', JSON.stringify(traslados));
+    }
   }, []);
 
   const cargarTraslados = async() => {
     try {
+      if (traslados) return;
+      console.log("hice la peticion");
       const data = await getTraslados(url);
       setTraslados(data);
     } catch (error) {

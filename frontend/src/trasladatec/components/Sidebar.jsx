@@ -12,6 +12,12 @@ import {
   Typography,
 } from "@mui/material";
 
+const COLORES_ESTATUS = {
+  1: "warning.main",
+  2: "success.main",
+  3: "error.main"
+}
+
 export const Sidebar = ({ drawerWidth, traslados = [] }) => {
   return (
     <Box
@@ -60,7 +66,7 @@ export const Sidebar = ({ drawerWidth, traslados = [] }) => {
               <ListItemButton>
                 <ListItemIcon
                   sx={{
-                    color: "success.main",
+                    color: `${COLORES_ESTATUS[traslado.estatus]}`,
                   }}
                 >
                   <CheckCircle />

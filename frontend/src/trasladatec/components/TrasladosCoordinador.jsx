@@ -11,9 +11,21 @@ export const TrasladosCoordinador = ({ traslado, setTraslados }) => {
       setTraslados((prevTraslados) => {
         const nuevosTraslados = prevTraslados.filter( tras => tras.FolioTraslado !== traslado.FolioTraslado );
         return nuevosTraslados;
-      })
+      });
 
     } catch(error) {
+      console.log(error);
+    }
+  }
+
+  const rechazarTraslado = async() => {
+    try {
+      await trasladoApi.put(`/rechazar/${traslado.FolioTraslado}`);
+      setTraslados((prevTraslados) => {
+        const nuevosTraslados = prevTraslados.filter( tras => tras.FolioTraslado !== traslado.FolioTraslado );
+        return nuevosTraslados;
+      });
+    } catch (error) {
       console.log(error);
     }
   }
@@ -21,6 +33,7 @@ export const TrasladosCoordinador = ({ traslado, setTraslados }) => {
   return (
     <TrasladoCardLayout traslado={ traslado }>
       <Button
+        onClick={rechazarTraslado}
         variant="outlined"
         color="error"
         sx={{

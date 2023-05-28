@@ -19,6 +19,7 @@ export const Navbar = ({ drawerWidth, containsSidebar = true }) => {
 
     dispatch(logout());
     localStorage.removeItem('institutos');
+    localStorage.removeItem('trasladosCordi');
 
     navigate("/", {
       replace: true,

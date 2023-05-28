@@ -7,6 +7,7 @@ import {
   ListItem,
   ListItemText,
   Modal,
+  TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -21,7 +22,6 @@ import { getTraslados } from "../helpers/traslados";
 import { inicializarInstancias } from "../helpers/instancias";
 
 export const EstudiantePage = () => {
-
   const { url, token } = useSelector((state) => state.auth);
   const [estudiante, setEstudiante] = useState();
   const [open, setOpen] = useState(false);
@@ -32,8 +32,8 @@ export const EstudiantePage = () => {
     cargarEstudiante();
     cargarTrasladosEstudiante();
     return () => {
-      localStorage.removeItem('institutos');
-    }
+      localStorage.removeItem("institutos");
+    };
   }, []);
 
   const cargarTrasladosEstudiante = async () => {
@@ -47,7 +47,7 @@ export const EstudiantePage = () => {
 
   const cargarEstudiante = async () => {
     try {
-      const { data } = await usuarioApi.get('/estudiante');
+      const { data } = await usuarioApi.get("/estudiante");
       setEstudiante(data);
     } catch (error) {
       console.log(error);
@@ -65,10 +65,7 @@ export const EstudiantePage = () => {
 
   return (
     <TrasladaTECLayout>
-      <Sidebar 
-        drawerWidth={400}
-        traslados={ traslados} 
-      />
+      <Sidebar drawerWidth={400} traslados={traslados} />
       <Grid container>
         <Grid
           container
@@ -83,6 +80,7 @@ export const EstudiantePage = () => {
             outline: "2px solid black",
             alignSelf: "center",
             margin: "0 auto",
+            p: 2,
           }}
         >
           <Grid item xs={12}>

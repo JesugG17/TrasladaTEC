@@ -26,11 +26,13 @@ export const TrasladoCardLayout = ({ children, traslado = [] }) => {
           <ListItemText>
             Instituto destino: {traslado.Instituto_Destino}
           </ListItemText>
-          <ListItemText>Estado: Pendiente </ListItemText>
+          <ListItemText>
+            Motivo: {traslado.motivo}
+          </ListItemText>
         </Grid>
 
         <Grid item>
-          <Grid container direction="column" spacing={2} alignItems="center">
+          <Grid container direction="column" spacing={2} alignItems="center" justifyContent="center">
             <Grid item>
               <Button variant="contained">Ver detalle</Button>
             </Grid>
