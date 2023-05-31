@@ -7,7 +7,7 @@ const { obtenerTraslados,
         rechazarTraslado } = require('../controllers/traslados.controller'); 
 const { validarJWT } = require('../middlewares/validarJWT');
 const { checarErrores } = require('../middlewares/checarErrores');
-const { tieneTrasladoActivo } = require('../middlewares/ChecarTraslados');
+const { tieneTrasladoActivo } = require('../middlewares/tieneTrasladoActivo');
 
 const router = Router();
 

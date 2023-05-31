@@ -1,24 +1,24 @@
 const { request, response } = require("express");
-const { Estudiante, Traslado, Movimiento, Empleado } = require("../models");
+const { Estudiante, Traslado, Movimiento, Empleado, Adeudo } = require("../models");
 const { sequelize } = require("../db/config");
 const Instituto = require("../models/instituto.model");
 const { ESTATUS } = require("../enum/Estatus.enum");
 
 
 // ESTO ES SOLO UN EJEMPLO
-const obtenerTraslados = async(req, res) => {
+const obtenerTraslados = async (req, res) => {
 
-    const [ traslados, cantidad ] = await sequelize.query('SELECT * FROM Traslados');
-    res.json({traslados, cantidad});
+    const [traslados, cantidad] = await sequelize.query('SELECT * FROM Traslados');
+    res.json({ traslados, cantidad });
 }
 
-const crearTraslado = async(req = request, res = response) => {
+const crearTraslado = async (req = request, res = response) => {
 
     const { motivo, institutoDestino } = req.body;
 
     const estudiante = await Estudiante.findOne({
         where: {
-            correo: req.correo 
+            correo: req.correo
         }
     });
 
@@ -44,10 +44,10 @@ const crearTraslado = async(req = request, res = response) => {
         traslado: traslado.folioTraslado
     })
 
-    res.json({traslado, ok: true});
+    res.json({ traslado, ok: true });
 }
 
-const trasladoPorEstudiante = async(req = request, res = response) => {
+const trasladoPorEstudiante = async (req = request, res = response) => {
 
     const correo = req.correo
 
@@ -67,28 +67,46 @@ const trasladoPorEstudiante = async(req = request, res = response) => {
 
 }
 
-const trasladoPorCoordinador = async(req = request, res = response) => {
-    
+const trasladoPorCoordinador = async (req = request, res = response) => {
+
     const correo = req.correo;
 
-    const { carrera } = await Empleado.findOne({
+    const { carrera, instituto } = await Empleado.findOne({
         where: {
             correo
         }
     });
 
+    const { instNombre } = await Instituto.findByPk(instituto);
+
     const [traslados] = await sequelize.query(
-        `SELECT t.*
+        `SELECT t.*, e.*
         FROM Traslados t
         INNER JOIN Estudiantes e on t.Estudiante = e.numControl
         WHERE e.carrera = '${ carrera }' AND t.Estatus not in('${ESTATUS.aceptada}', '${ESTATUS.rechazada}')`
-    )
+    );
 
-    res.json(traslados);
+    for (let i = 0; i < traslados.length; i++) {
+        const { count } = await Adeudo.findAndCountAll({
+            where: {
+                estudiante: traslados[i].Estudiante
+            }
+        });
+
+        if (count > 0) {
+            traslados[i].adeudo = true;
+        }
+    }
+
+    const trasladosDelCoordinador = traslados.filter( traslado => {
+        return traslado.Instituto_Destino === instNombre;
+    })
+
+    res.json({ traslados: trasladosDelCoordinador });
 }
 
 
-const aceptarTraslado = async(req = request, res = response) => {
+const aceptarTraslado = async (req = request, res = response) => {
 
     const { id } = req.params;
     const correo = req.correo;
@@ -103,13 +121,13 @@ const aceptarTraslado = async(req = request, res = response) => {
         usuario: correo,
         traslado: id
     });
-    
+
     res.json({
         ok: true
     })
 }
 
-const rechazarTraslado = async(req = request, res = response) => {
+const rechazarTraslado = async (req = request, res = response) => {
     const { id } = req.params;
     const correo = req.correo;
 

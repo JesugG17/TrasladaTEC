@@ -1,0 +1,30 @@
+
+
+<Clientes Clave="123" ClaveMun="3123">
+    <Contacto>
+        <Nombre>America</Nombre>
+        <Apellido>Flores</Apellido>
+        <Titulo>Licenciado</Titulo>
+    </Contacto>
+    <Direccion>
+        <Domicilio>Calle Clavel</Domicilio>
+        <Municipio>Culiacan</Municipio>
+        <Estado>Sinaloa</Estado>
+    </Direccion>
+</Clientes>
+
+<Clientes Clave="123131" ClaveMun="34213">
+    <NombreCompleto>
+        <Nombre>America</Nombre>
+        <Apellido>Flores</Apellido>
+    </NombreCompleto>
+    <Direccion>
+        <Domicilio>Calle Clavel</Domicilio>
+        <Municipio>Culiacan</Municipio>
+    </Direccion>
+</Clientes>
+
+SELECT c.cliid "@clave",
+FROM Clientes C
+INNER JOIN Municipios M ON C.munid = M.munid
+FOR XML PATH RAW('Clientes'), ROOT('Clientes'), ELEMENTS
