@@ -1,6 +1,7 @@
-import { Button, Grid, ListItem, ListItemText } from "@mui/material";
+import { Grid, ListItem, ListItemText } from "@mui/material";
 
-export const TrasladoCardLayout = ({ children, traslado = [] }) => {
+export const TrasladoCardLayout = ({ children, traslado }) => {
+  console.log(traslado);
   return (
     <ListItem
       className="box-shadow"
@@ -29,13 +30,19 @@ export const TrasladoCardLayout = ({ children, traslado = [] }) => {
           <ListItemText>
             Motivo: {traslado.motivo}
           </ListItemText>
+          <ListItemText>
+            Estudiante: {traslado.Estudiante}
+          </ListItemText>
+          <ListItemText>
+            Carrera: {traslado.Carrera}
+          </ListItemText>
+          <ListItemText>
+            Adeudo: {traslado.adeudo ? "Si" : "No"}
+          </ListItemText>
         </Grid>
 
         <Grid item>
-          <Grid container direction="column" spacing={2} alignItems="center" justifyContent="center">
-            <Grid item>
-              <Button variant="contained">Ver detalle</Button>
-            </Grid>
+          <Grid container direction="column" spacing={2} alignItems="center" justifyContent="center">            
             <Grid item>{children}</Grid>
           </Grid>
         </Grid>

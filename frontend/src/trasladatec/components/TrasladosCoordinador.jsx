@@ -31,10 +31,12 @@ export const TrasladosCoordinador = ({ traslado, setTraslados }) => {
   }
 
   return (
-    <TrasladoCardLayout traslado={ traslado }>
+    <TrasladoCardLayout 
+      traslado={ traslado }
+    >
       <Button
         onClick={rechazarTraslado}
-        variant="outlined"
+        variant="contained"
         color="error"
         sx={{
           mr: 2,
@@ -42,7 +44,7 @@ export const TrasladosCoordinador = ({ traslado, setTraslados }) => {
       >
         Rechazar
       </Button>
-      <Button onClick={aceptarTraslado} variant="outlined" color="success">
+      <Button disabled={traslado.adeudo} onClick={aceptarTraslado} variant="contained"  color="success">
         Aceptar
       </Button>
     </TrasladoCardLayout>

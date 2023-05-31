@@ -144,17 +144,6 @@ export const EstudiantePage = () => {
             <AddOutlined sx={{ fontSize: 30 }} />
           </IconButton>
         </Tooltip>
-
-        {/* {open && (
-          <Modal open>
-            <Grid container>
-              <SolicitudView
-                setTraslados={setTraslados}
-                handleOpenApplication={handleOpenApplication}
-              />
-            </Grid>
-          </Modal>
-        )} */}
         <Modal open={open}>
           <Grid container>
             <SolicitudView

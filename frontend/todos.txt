@@ -1,10 +1,11 @@
 COSAS POR HACER: 
 
--- FACILES --
 1.- MOSTRAR SOLOS LOS INSTITUTOS QUE TENGAN LA CARRERA DEL ALUMNO LOGUEADO -- DONE
-2.- SI EL ALUMNO TIENE UNA SOLICITUD ACTIVA, NO DEBE DEJAR CREAR OTRA -- PARCIALMENTE HECHO
+2.- SI EL ALUMNO TIENE UNA SOLICITUD ACTIVA, NO DEBE DEJAR CREAR OTRA -- DONE
 3.- Mostrar todas las solicitudes al coordinador de su respectiva carrera -- DONE
+4.- Redirigir correctamente al jefe de division, control escolar o coordinador a su pagina correspondiente -- DONE
 
--- MAS LABORIOSAS --
-1.- Redirigir correctamente al jefe de division, control escolar o coordinador a su pagina correspondiente -- DONE
+5.- Que el coordinador del instituto origen vea la solicitud pero no pueda interactuar con ella
+6.- Que el coordinador del instituto destino vea la solicitud y pueda rechazarla o aceptar
+7.- Añadir modal del boton "Ver detalle" para mostrar mas detalle 
 
