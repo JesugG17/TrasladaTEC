@@ -25,7 +25,6 @@ export const SolicitudView = ({ handleOpenApplication }) => {
 
   const dispatch = useDispatch();
   const { institutesToTransfer: institutes, errorMessage } = useSelector(state => state.student);
-  const [adeudo, setAdeudo] = useState();
 
   const {
     motivo,
@@ -36,22 +35,13 @@ export const SolicitudView = ({ handleOpenApplication }) => {
     handleChange,
     onChangeInstituto,
     setError,
-    setSuccess
+    setSuccess,
+    resetAll
   } = useSolicitud();
 
   useEffect(() => {
     dispatch(startChargingInstitutes());
-    // obtenerAdeudos();
-    // cargarInstitutos()
   }, []);
-  
-  const obtenerAdeudos = async() => {
-    try {
-      
-    } catch (error) {
-      console.log(error);
-    }
-  }
   
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -63,6 +53,9 @@ export const SolicitudView = ({ handleOpenApplication }) => {
     }
 
     dispatch(creatingNewTransfer(motivo, instituto));
+    setError(false);
+    setSuccess(true);
+    resetAll();
   };
   return (
     <Grid
