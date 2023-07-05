@@ -9,22 +9,14 @@ import {
 } from "@mui/material";
 import { CloseOutlined } from "@mui/icons-material";
 import { useSolicitud } from "../hooks/useSolicitud";
-import { postTraslado } from "../helpers/traslados";
-import { useEffect, useState } from "react";
-import { getInstitutos } from "../helpers/institutos";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { usuarioApi } from "../../api";
 import { creatingNewTransfer, startChargingInstitutes } from "../../store/student/thunks";
 
 export const SolicitudView = ({ handleOpenApplication }) => {
 
-  const [institutos, setInstitutos] = useState(() => {
-    const institutosGuardados = JSON.parse(localStorage.getItem('institutos'));
-    return institutosGuardados ?? [];
-  });
-
   const dispatch = useDispatch();
-  const { institutesToTransfer: institutes, errorMessage } = useSelector(state => state.student);
+  const { institutesToTransfer: institutes, errorMessage, debit } = useSelector(state => state.student);
 
   const {
     motivo,
@@ -53,8 +45,6 @@ export const SolicitudView = ({ handleOpenApplication }) => {
     }
 
     dispatch(creatingNewTransfer(motivo, instituto));
-    setError(false);
-    setSuccess(true);
     resetAll();
   };
   return (
@@ -95,7 +85,7 @@ export const SolicitudView = ({ handleOpenApplication }) => {
             sx={{ width: 300 }}
             options={institutes}
             onChange={onChangeInstituto}
-            disabled={disabled || adeudo}
+            disabled={disabled || debit}
             value={instituto}
             blurOnSelect
             renderInput={(params) => {
@@ -116,7 +106,7 @@ export const SolicitudView = ({ handleOpenApplication }) => {
             minRows={4}
             name="motivo"
             onChange={handleChange}
-            disabled={disabled || adeudo}
+            disabled={disabled || debit}
             value={motivo}
             label="Motivo"
             variant="filled"
@@ -125,7 +115,7 @@ export const SolicitudView = ({ handleOpenApplication }) => {
         </Grid>
         <Grid item xs={12} sx={{ mt: 2 }}>
           <Button
-            disabled={disabled || adeudo}
+            disabled={disabled || debit}
             variant="contained"
             type="submit"
             fullWidth
@@ -153,7 +143,7 @@ export const SolicitudView = ({ handleOpenApplication }) => {
               Solicitud creada exitosamente
             </Alert>
           )}
-          {adeudo && (
+          {debit && (
             <Alert
               severity="error"
               sx={{ mt: 2 }}
