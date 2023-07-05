@@ -13,47 +13,33 @@ import {
 } from "@mui/material";
 import { TrasladaTECLayout } from "../layout/TrasladaTECLayout";
 import { AccountBoxOutlined, AddOutlined } from "@mui/icons-material";
-import { SolicitudView } from "../view/SolicitudView";
-import { useSelector } from "react-redux";
-import { usuarioApi } from "../../api/usuario.api";
+import { useDispatch, useSelector } from "react-redux";
 import { CheckingAuth } from "../../router/components/CheckingAuth";
 import { Sidebar } from "../components/Sidebar";
-import { getTraslados } from "../helpers/traslados";
 import { inicializarInstancias } from "../helpers/instancias";
+import { startChargeStudent, startChargeTraslados } from "../../store/traslados/thunks";
 
 export const EstudiantePage = () => {
   const { url, token } = useSelector((state) => state.auth);
-  const [estudiante, setEstudiante] = useState();
+  const { traslados, estudiante } = useSelector(state => state.traslado);
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-  const [traslados, setTraslados] = useState([]);
 
   useEffect(() => {
     inicializarInstancias(token);
-    cargarEstudiante();
-    cargarTrasladosEstudiante();
     return () => {
       localStorage.removeItem("institutos");
     };
   }, []);
 
-  const cargarTrasladosEstudiante = async () => {
-    try {
-      const data = await getTraslados(url);
-      setTraslados(data);
-    } catch (error) {
-      console.log("Fallo al pedir los traslados");
-    }
-  };
+  useEffect(() => {
+    dispatch(startChargeStudent());
+  }, []);
 
-  const cargarEstudiante = async () => {
-    try {
-      const { data } = await usuarioApi.get("/estudiante");
-      setEstudiante(data);
-    } catch (error) {
-      console.log(error);
-      console.log("Algo salio mal");
-    }
-  };
+  useEffect(() => {
+    dispatch(startChargeTraslados(url));
+  }, []);
+
 
   const handleOpenApplication = () => {
     setOpen(!open);
@@ -144,14 +130,14 @@ export const EstudiantePage = () => {
             <AddOutlined sx={{ fontSize: 30 }} />
           </IconButton>
         </Tooltip>
-        <Modal open={open}>
+        {/* <Modal open={open}>
           <Grid container>
             <SolicitudView
               setTraslados={setTraslados}
               handleOpenApplication={handleOpenApplication}
             />
           </Grid>
-        </Modal>
+        </Modal> */}
       </Grid>
     </TrasladaTECLayout>
   );
