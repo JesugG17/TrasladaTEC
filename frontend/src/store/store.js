@@ -6,19 +6,21 @@ import thunk from 'redux-thunk'
 import persistStore from 'redux-persist/es/persistStore';
 import { studentSlice } from './student/studentSlice';
 
-const authConfig = {
-    key: 'auth',
-    storage
+
+const persistedConfigs = {
+    student: {
+        key: 'student',
+        storage
+    },
+    auth: {
+        key: 'auth',
+        storage
+    }
 }
 
-const studentConfig = {
-    key: 'student',
-    storage
-}
 
-
-const persistedAuthReducer = persistReducer(authConfig, authSlice.reducer);
-const persistedStudentReducer = persistReducer(studentConfig, studentSlice.reducer);
+const persistedAuthReducer = persistReducer(persistedConfigs.auth, authSlice.reducer);
+const persistedStudentReducer = persistReducer(persistedConfigs.student, studentSlice.reducer);
 
 export const store = configureStore({
     reducer: {
