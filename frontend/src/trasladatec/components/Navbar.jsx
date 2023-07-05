@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { logout, resetAuthState } from "../../store/auth/authSlice";
+import { logout } from "../../store/auth/authSlice";
 import { resetStudentState } from "../../store/student/studentSlice";
 
 export const Navbar = ({ drawerWidth, containsSidebar = true }) => {
@@ -19,7 +19,6 @@ export const Navbar = ({ drawerWidth, containsSidebar = true }) => {
   const handleLogout = () => {
 
     dispatch(logout());
-    dispatch(resetAuthState());
     dispatch(resetStudentState());
     localStorage.removeItem('institutos');
     localStorage.removeItem('trasladosCordi');

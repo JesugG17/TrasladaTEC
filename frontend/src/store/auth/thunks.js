@@ -1,8 +1,8 @@
-import { checandoCredenciales, login, logout } from './authSlice'
+import { checkingCredentials, login, logout } from './authSlice'
 
 export const startLogInWithEmailAndPassword = (result) => {
     return (dispatch) => {
-        dispatch(checandoCredenciales());
+        dispatch(checkingCredentials());
 
         if (!result.ok) {
             return dispatch(logout(result));

@@ -1,13 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
-    info: null,
-    transfers: [],
-    errorMessage: null,
-    institutesToTransfer: [],
-    debit: false
-}
-
 export const studentSlice = createSlice({
     name: 'traslado',
     initialState: {
