@@ -7,7 +7,6 @@ import {
   ListItem,
   ListItemText,
   Modal,
-  TextField,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -17,11 +16,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { CheckingAuth } from "../../router/components/CheckingAuth";
 import { Sidebar } from "../components/Sidebar";
 import { inicializarInstancias } from "../helpers/instancias";
-import { startChargeStudent, startChargeTraslados } from "../../store/traslados/thunks";
+import { startChargeStudent, startChargeTransfers } from "../../store/student/thunks";
+import { SolicitudView } from "../view/SolicitudView";
 
 export const EstudiantePage = () => {
-  const { url, token } = useSelector((state) => state.auth);
-  const { traslados, estudiante } = useSelector(state => state.traslado);
+
+  const { url, token } = useSelector(state => state.auth);
+  const { transfers, info } = useSelector(state => state.student);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
@@ -37,7 +38,7 @@ export const EstudiantePage = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(startChargeTraslados(url));
+    dispatch(startChargeTransfers(url));
   }, []);
 
 
@@ -45,13 +46,13 @@ export const EstudiantePage = () => {
     setOpen(!open);
   };
 
-  if (!estudiante || !traslados) {
+  if (!info || !transfers) {
     return <CheckingAuth />;
   }
 
   return (
     <TrasladaTECLayout>
-      <Sidebar drawerWidth={400} traslados={traslados} />
+      <Sidebar drawerWidth={400} traslados={transfers} />
       <Grid container>
         <Grid
           container
@@ -80,23 +81,23 @@ export const EstudiantePage = () => {
               <List>
                 <ListItem>
                   <ListItemText>
-                    NumControl: {estudiante.numControl}
+                    NumControl: {info.numControl}
                   </ListItemText>
                 </ListItem>
                 <ListItem>
-                  <ListItemText>Nombre: {estudiante.estNombre}</ListItemText>
+                  <ListItemText>Nombre: {info.estNombre}</ListItemText>
                 </ListItem>
                 <ListItem>
                   <ListItemText>
                     Apellidos:{" "}
-                    {`${estudiante.estApePat} ${estudiante.estApeMat}`}
+                    {`${info.estApePat} ${info.estApeMat}`}
                   </ListItemText>
                 </ListItem>
                 <ListItem>
-                  <ListItemText>Semestre: {estudiante.semestre}</ListItemText>
+                  <ListItemText>Semestre: {info.semestre}</ListItemText>
                 </ListItem>
                 <ListItem>
-                  <ListItemText>Promedio: {estudiante.promedio}</ListItemText>
+                  <ListItemText>Promedio: {info.promedio}</ListItemText>
                 </ListItem>
               </List>
             </Grid>
@@ -130,14 +131,13 @@ export const EstudiantePage = () => {
             <AddOutlined sx={{ fontSize: 30 }} />
           </IconButton>
         </Tooltip>
-        {/* <Modal open={open}>
+        <Modal open={open}>
           <Grid container>
             <SolicitudView
-              setTraslados={setTraslados}
               handleOpenApplication={handleOpenApplication}
             />
           </Grid>
-        </Modal> */}
+        </Modal>
       </Grid>
     </TrasladaTECLayout>
   );

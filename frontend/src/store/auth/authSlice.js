@@ -1,13 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialState = {
+    estatus: 'no-autorizado', // 'no-autorizado', 'autorizado', 'checando'
+    token: null,
+    errorMessage:null
+}
+
 export const authSlice = createSlice({
     name: 'auth',
     initialState: {
         estatus: 'no-autorizado', // 'no-autorizado', 'autorizado', 'checando'
-        correo: null,
         token: null,
         errorMessage:null
-
     },
     reducers: {
         login: (state, {payload}) => {
@@ -23,7 +27,6 @@ export const authSlice = createSlice({
             return {
                 ...state,
                 ...payload,
-                correo: null,
                 token: null,
                 estatus: 'no-autorizado'
             }
@@ -33,8 +36,14 @@ export const authSlice = createSlice({
                 ...state,
                 estatus: 'checando'
             };
+        },
+        resetAuthState: (state) => {
+            state.estatus = 'no-autorizado', // 'no-autorizado', 'autorizado', 'checando'
+            state.token = null,
+            state.errorMessage =null
+                
         }
     }
 });
 
-export const { checandoCredenciales, login, logout } = authSlice.actions;
+export const { checandoCredenciales, login, logout, resetAuthState } = authSlice.actions;

@@ -61,8 +61,8 @@ export const Sidebar = ({ drawerWidth, traslados = [] }) => {
               No hay solicitudes hechas
             </Typography>
           )}
-          {traslados.map((traslado) => (
-            <ListItem key={traslado.folioTraslado} disablePadding>
+          {traslados.map((traslado, index) => (
+            <ListItem key={index} disablePadding>
               <ListItemButton>
                 <ListItemIcon
                   sx={{

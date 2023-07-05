@@ -4,20 +4,26 @@ import storage from 'redux-persist/lib/storage';
 import persistReducer from 'redux-persist/es/persistReducer';
 import thunk from 'redux-thunk'
 import persistStore from 'redux-persist/es/persistStore';
-import { trasladoSlice } from './traslados/trasladosSlice';
+import { studentSlice } from './student/studentSlice';
 
-const persistConfig = {
-    key: 'root',
+const authConfig = {
+    key: 'auth',
     storage
 }
 
-const persistedAuthReducer = persistReducer(persistConfig, authSlice.reducer);
-const persistedTrasladoReducer = persistReducer(persistConfig, trasladoSlice.reducer);
+const studentConfig = {
+    key: 'student',
+    storage
+}
+
+
+const persistedAuthReducer = persistReducer(authConfig, authSlice.reducer);
+const persistedStudentReducer = persistReducer(studentConfig, studentSlice.reducer);
 
 export const store = configureStore({
     reducer: {
         auth: persistedAuthReducer,
-        traslado: persistedTrasladoReducer
+        student: persistedStudentReducer
     },
     middleware: [thunk]
 });

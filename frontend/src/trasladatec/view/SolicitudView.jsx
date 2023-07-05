@@ -12,17 +12,19 @@ import { useSolicitud } from "../hooks/useSolicitud";
 import { postTraslado } from "../helpers/traslados";
 import { useEffect, useState } from "react";
 import { getInstitutos } from "../helpers/institutos";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { usuarioApi } from "../../api";
+import { creatingNewTransfer, startChargingInstitutes } from "../../store/student/thunks";
 
-export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
+export const SolicitudView = ({ handleOpenApplication }) => {
 
-  const { correo } = useSelector(state => state.auth);
-  const [errorMessage, setErrorMessage] = useState(null);
   const [institutos, setInstitutos] = useState(() => {
     const institutosGuardados = JSON.parse(localStorage.getItem('institutos'));
     return institutosGuardados ?? [];
   });
+
+  const dispatch = useDispatch();
+  const { institutesToTransfer: institutes, errorMessage } = useSelector(state => state.student);
   const [adeudo, setAdeudo] = useState();
 
   const {
@@ -32,38 +34,25 @@ export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
     error,
     success,
     handleChange,
-    resetAll,
     onChangeInstituto,
     setError,
     setSuccess
   } = useSolicitud();
 
   useEffect(() => {
-    obtenerAdeudos();
-    cargarInstitutos()
+    dispatch(startChargingInstitutes());
+    // obtenerAdeudos();
+    // cargarInstitutos()
   }, []);
   
   const obtenerAdeudos = async() => {
     try {
-      const { data } = await usuarioApi.get('/adeudo');
-      setAdeudo(data.adeudo);
+      
     } catch (error) {
       console.log(error);
     }
   }
   
-  const cargarInstitutos = async() => {
-    try {
-      if (institutos.length !== 0) return;
-      const data = await getInstitutos(correo);
-      const institutosDisponibles = data.map( instituto => instituto.instNombre);
-      localStorage.setItem('institutos', JSON.stringify(institutosDisponibles));
-      setInstitutos(institutosDisponibles);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -73,18 +62,7 @@ export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
       return;
     }
 
-    const { data } = await postTraslado({
-      motivo,
-      institutoDestino: instituto,
-    });
-
-    if (!data.ok) {
-      setErrorMessage(data.error)
-      return;
-    }
-    setErrorMessage(null);
-    setTraslados((traslados) => [data.traslado, ...traslados]);
-    resetAll();
+    dispatch(creatingNewTransfer(motivo, instituto));
   };
   return (
     <Grid
@@ -122,7 +100,7 @@ export const SolicitudView = ({ handleOpenApplication, setTraslados }) => {
           <Autocomplete
             id="institutos-select"
             sx={{ width: 300 }}
-            options={institutos}
+            options={institutes}
             onChange={onChangeInstituto}
             disabled={disabled || adeudo}
             value={instituto}
